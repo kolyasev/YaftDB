@@ -1,0 +1,374 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6627FC091C517C7C002A927F /* YaftDB.h in Headers */ = {isa = PBXBuildFile; fileRef = 6627FC071C517C7C002A927F /* YaftDB.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6627FC0A1C517CA2002A927F /* CacheObjectCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6627FBF31C517B8E002A927F /* CacheObjectCoder.swift */; };
+		6627FC0B1C517CA5002A927F /* CacheObjectMetadataCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6627FBF41C517B8E002A927F /* CacheObjectMetadataCoder.swift */; };
+		6627FC0C1C517CB7002A927F /* InvalidCacheObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6627FBE01C517B6D002A927F /* InvalidCacheObject.swift */; };
+		6627FC0D1C517CB7002A927F /* CacheCollectionViewObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6627FBE21C517B6D002A927F /* CacheCollectionViewObserver.swift */; };
+		6627FC0E1C517CB7002A927F /* CacheObjectObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6627FBE31C517B6D002A927F /* CacheObjectObserver.swift */; };
+		6627FC0F1C517CB7002A927F /* CacheCollectionFilteredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6627FBE51C517B6D002A927F /* CacheCollectionFilteredView.swift */; };
+		6627FC101C517CB7002A927F /* CacheCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6627FBE61C517B6D002A927F /* CacheCollectionView.swift */; };
+		6627FC111C517CB7002A927F /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6627FBD81C517B6D002A927F /* Cache.swift */; };
+		6627FC121C517CB7002A927F /* CacheCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6627FBD91C517B6D002A927F /* CacheCollection.swift */; };
+		6627FC131C517CB7002A927F /* CacheObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6627FBDA1C517B6D002A927F /* CacheObject.swift */; };
+		6627FC141C517CB7002A927F /* CacheObjectMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6627FBDB1C517B6D002A927F /* CacheObjectMetadata.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		6627FBD81C517B6D002A927F /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		6627FBD91C517B6D002A927F /* CacheCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheCollection.swift; sourceTree = "<group>"; };
+		6627FBDA1C517B6D002A927F /* CacheObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheObject.swift; sourceTree = "<group>"; };
+		6627FBDB1C517B6D002A927F /* CacheObjectMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheObjectMetadata.swift; sourceTree = "<group>"; };
+		6627FBE01C517B6D002A927F /* InvalidCacheObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvalidCacheObject.swift; sourceTree = "<group>"; };
+		6627FBE21C517B6D002A927F /* CacheCollectionViewObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheCollectionViewObserver.swift; sourceTree = "<group>"; };
+		6627FBE31C517B6D002A927F /* CacheObjectObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheObjectObserver.swift; sourceTree = "<group>"; };
+		6627FBE51C517B6D002A927F /* CacheCollectionFilteredView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheCollectionFilteredView.swift; sourceTree = "<group>"; };
+		6627FBE61C517B6D002A927F /* CacheCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheCollectionView.swift; sourceTree = "<group>"; };
+		6627FBF31C517B8E002A927F /* CacheObjectCoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheObjectCoder.swift; sourceTree = "<group>"; };
+		6627FBF41C517B8E002A927F /* CacheObjectMetadataCoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheObjectMetadataCoder.swift; sourceTree = "<group>"; };
+		6627FBFC1C517BD6002A927F /* YaftDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YaftDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6627FC061C517C7C002A927F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6627FC071C517C7C002A927F /* YaftDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YaftDB.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6627FBF81C517BD6002A927F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		607FACC71AFB9204008FA782 = {
+			isa = PBXGroup;
+			children = (
+				6627FBD71C517B6D002A927F /* Source */,
+				6627FC051C517C7C002A927F /* Framework */,
+				6627FC041C517BE3002A927F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6627FBD71C517B6D002A927F /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				6627FBDF1C517B6D002A927F /* Internal */,
+				6627FBE11C517B6D002A927F /* Observer */,
+				6627FBE41C517B6D002A927F /* View */,
+				6627FBD81C517B6D002A927F /* Cache.swift */,
+				6627FBD91C517B6D002A927F /* CacheCollection.swift */,
+				6627FBDA1C517B6D002A927F /* CacheObject.swift */,
+				6627FBDB1C517B6D002A927F /* CacheObjectMetadata.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		6627FBDF1C517B6D002A927F /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				6627FBF21C517B8E002A927F /* Coding */,
+				6627FBE01C517B6D002A927F /* InvalidCacheObject.swift */,
+			);
+			path = Internal;
+			sourceTree = "<group>";
+		};
+		6627FBE11C517B6D002A927F /* Observer */ = {
+			isa = PBXGroup;
+			children = (
+				6627FBE21C517B6D002A927F /* CacheCollectionViewObserver.swift */,
+				6627FBE31C517B6D002A927F /* CacheObjectObserver.swift */,
+			);
+			path = Observer;
+			sourceTree = "<group>";
+		};
+		6627FBE41C517B6D002A927F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6627FBE51C517B6D002A927F /* CacheCollectionFilteredView.swift */,
+				6627FBE61C517B6D002A927F /* CacheCollectionView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6627FBF21C517B8E002A927F /* Coding */ = {
+			isa = PBXGroup;
+			children = (
+				6627FBF31C517B8E002A927F /* CacheObjectCoder.swift */,
+				6627FBF41C517B8E002A927F /* CacheObjectMetadataCoder.swift */,
+			);
+			path = Coding;
+			sourceTree = "<group>";
+		};
+		6627FC041C517BE3002A927F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6627FBFC1C517BD6002A927F /* YaftDB.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6627FC051C517C7C002A927F /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				6627FC061C517C7C002A927F /* Info.plist */,
+				6627FC071C517C7C002A927F /* YaftDB.h */,
+			);
+			path = Framework;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		6627FBF91C517BD6002A927F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6627FC091C517C7C002A927F /* YaftDB.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		6627FBFB1C517BD6002A927F /* YaftDB */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6627FC011C517BD6002A927F /* Build configuration list for PBXNativeTarget "YaftDB" */;
+			buildPhases = (
+				6627FBF71C517BD6002A927F /* Sources */,
+				6627FBF81C517BD6002A927F /* Frameworks */,
+				6627FBF91C517BD6002A927F /* Headers */,
+				6627FBFA1C517BD6002A927F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = YaftDB;
+			productName = YafsDB;
+			productReference = 6627FBFC1C517BD6002A927F /* YaftDB.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		607FACC81AFB9204008FA782 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = CocoaPods;
+				TargetAttributes = {
+					6627FBFB1C517BD6002A927F = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
+			};
+			buildConfigurationList = 607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "YaftDB" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 607FACC71AFB9204008FA782;
+			productRefGroup = 607FACC71AFB9204008FA782;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6627FBFB1C517BD6002A927F /* YaftDB */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6627FBFA1C517BD6002A927F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6627FBF71C517BD6002A927F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6627FC0C1C517CB7002A927F /* InvalidCacheObject.swift in Sources */,
+				6627FC0D1C517CB7002A927F /* CacheCollectionViewObserver.swift in Sources */,
+				6627FC0E1C517CB7002A927F /* CacheObjectObserver.swift in Sources */,
+				6627FC0F1C517CB7002A927F /* CacheCollectionFilteredView.swift in Sources */,
+				6627FC101C517CB7002A927F /* CacheCollectionView.swift in Sources */,
+				6627FC111C517CB7002A927F /* Cache.swift in Sources */,
+				6627FC121C517CB7002A927F /* CacheCollection.swift in Sources */,
+				6627FC131C517CB7002A927F /* CacheObject.swift in Sources */,
+				6627FC141C517CB7002A927F /* CacheObjectMetadata.swift in Sources */,
+				6627FC0B1C517CA5002A927F /* CacheObjectMetadataCoder.swift in Sources */,
+				6627FC0A1C517CA2002A927F /* CacheObjectCoder.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		607FACED1AFB9204008FA782 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		607FACEE1AFB9204008FA782 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6627FC021C517BD6002A927F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Framework/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.kolyasev.YafsDB;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		6627FC031C517BD6002A927F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Framework/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.kolyasev.YafsDB;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "YaftDB" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				607FACED1AFB9204008FA782 /* Debug */,
+				607FACEE1AFB9204008FA782 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6627FC011C517BD6002A927F /* Build configuration list for PBXNativeTarget "YaftDB" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6627FC021C517BD6002A927F /* Debug */,
+				6627FC031C517BD6002A927F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 607FACC81AFB9204008FA782 /* Project object */;
+}
