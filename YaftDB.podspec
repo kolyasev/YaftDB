@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
   s.name             = "YaftDB"
   s.version          = "0.1.0"
   s.summary          = "Yet another Swift wrapper for YapDatabase"
-  s.homepage         = "https://github.com/kolyasev/YasfDB"
+  s.homepage         = "https://github.com/kolyasev/YaftDB"
   s.license          = 'MIT'
   s.author           = { "Denis Kolyasev" => "kolyasev@gmail.com" }
   s.source           = { :git => "https://github.com/kolyasev/YaftDB.git", :tag => s.version.to_s }
