@@ -1,0 +1,9 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+
+xcodeproj '../YaftDB.xcodeproj'
+workspace '../YaftDB.xcworkspace'
+
+target 'YaftDB_Tests', :exclusive => true do
+  pod "YaftDB", :path => "../"
+end
