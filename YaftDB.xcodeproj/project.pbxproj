@@ -7,13 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		66BA38331C526C1100324F0C /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BA38311C526C1100324F0C /* Tests.swift */; };
-		A6F60BB9C26CBF83CD4C6BE2 /* Pods_YaftDB_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0DE0DFDC5C483C1D8616D9 /* Pods_YaftDB_Tests.framework */; };
+		6627FC481C52D5C1002A927F /* YaftDBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6627FC471C52D5C1002A927F /* YaftDBTests.swift */; };
+		B5D6D7659AA13BAC8840A1FC /* Pods_YaftDBTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BA8E55CCA429A916564A4B3 /* Pods_YaftDBTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0E0DE0DFDC5C483C1D8616D9 /* Pods_YaftDB_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YaftDB_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2E5EF76B647F441E2CDE9300 /* Pods-YaftDB_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YaftDB_Tests.release.xcconfig"; path = "Example/Pods/Target Support Files/Pods-YaftDB_Tests/Pods-YaftDB_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		5BA8E55CCA429A916564A4B3 /* Pods_YaftDBTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YaftDBTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6627FBD81C517B6D002A927F /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		6627FBD91C517B6D002A927F /* CacheCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheCollection.swift; sourceTree = "<group>"; };
 		6627FBDA1C517B6D002A927F /* CacheObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheObject.swift; sourceTree = "<group>"; };
@@ -25,18 +24,19 @@
 		6627FBE61C517B6D002A927F /* CacheCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheCollectionView.swift; sourceTree = "<group>"; };
 		6627FBF31C517B8E002A927F /* CacheObjectCoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheObjectCoder.swift; sourceTree = "<group>"; };
 		6627FBF41C517B8E002A927F /* CacheObjectMetadataCoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheObjectMetadataCoder.swift; sourceTree = "<group>"; };
-		66BA38271C526BE900324F0C /* YaftDB_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YaftDB_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		66BA38301C526C1100324F0C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		66BA38311C526C1100324F0C /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		8A5227C67C36AAAB9233532E /* Pods-YaftDB_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YaftDB_Tests.debug.xcconfig"; path = "Example/Pods/Target Support Files/Pods-YaftDB_Tests/Pods-YaftDB_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		6627FC451C52D5C1002A927F /* YaftDBTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YaftDBTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6627FC471C52D5C1002A927F /* YaftDBTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YaftDBTests.swift; sourceTree = "<group>"; };
+		6627FC491C52D5C1002A927F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B81DE6142DB50BC02FCE00A9 /* Pods-YaftDBTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YaftDBTests.debug.xcconfig"; path = "Example/Pods/Target Support Files/Pods-YaftDBTests/Pods-YaftDBTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B86A6E9F30D33021FD53CFC2 /* Pods-YaftDBTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YaftDBTests.release.xcconfig"; path = "Example/Pods/Target Support Files/Pods-YaftDBTests/Pods-YaftDBTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		66BA38241C526BE900324F0C /* Frameworks */ = {
+		6627FC421C52D5C1002A927F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A6F60BB9C26CBF83CD4C6BE2 /* Pods_YaftDB_Tests.framework in Frameworks */,
+				B5D6D7659AA13BAC8840A1FC /* Pods_YaftDBTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,9 +47,10 @@
 			isa = PBXGroup;
 			children = (
 				6627FBD71C517B6D002A927F /* Source */,
-				66BA382F1C526C1100324F0C /* Tests */,
-				D0C08A39C9846F63F12316E9 /* Pods */,
-				66BA383C1C526D3B00324F0C /* Products */,
+				6627FC451C52D5C1002A927F /* YaftDBTests.xctest */,
+				6627FC461C52D5C1002A927F /* YaftDBTests */,
+				83BBB733B1D53B0F3AC0235B /* Pods */,
+				6AA10194D16450A449280924 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,30 +104,28 @@
 			path = Coding;
 			sourceTree = "<group>";
 		};
-		66BA382F1C526C1100324F0C /* Tests */ = {
+		6627FC461C52D5C1002A927F /* YaftDBTests */ = {
 			isa = PBXGroup;
 			children = (
-				66BA38301C526C1100324F0C /* Info.plist */,
-				66BA38311C526C1100324F0C /* Tests.swift */,
+				6627FC471C52D5C1002A927F /* YaftDBTests.swift */,
+				6627FC491C52D5C1002A927F /* Info.plist */,
 			);
-			name = Tests;
-			path = Example/Tests;
+			path = YaftDBTests;
 			sourceTree = "<group>";
 		};
-		66BA383C1C526D3B00324F0C /* Products */ = {
+		6AA10194D16450A449280924 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				66BA38271C526BE900324F0C /* YaftDB_Tests.xctest */,
-				0E0DE0DFDC5C483C1D8616D9 /* Pods_YaftDB_Tests.framework */,
+				5BA8E55CCA429A916564A4B3 /* Pods_YaftDBTests.framework */,
 			);
-			name = Products;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D0C08A39C9846F63F12316E9 /* Pods */ = {
+		83BBB733B1D53B0F3AC0235B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				8A5227C67C36AAAB9233532E /* Pods-YaftDB_Tests.debug.xcconfig */,
-				2E5EF76B647F441E2CDE9300 /* Pods-YaftDB_Tests.release.xcconfig */,
+				B81DE6142DB50BC02FCE00A9 /* Pods-YaftDBTests.debug.xcconfig */,
+				B86A6E9F30D33021FD53CFC2 /* Pods-YaftDBTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -134,24 +133,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		66BA38261C526BE900324F0C /* YaftDB_Tests */ = {
+		6627FC441C52D5C1002A927F /* YaftDBTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 66BA382C1C526BE900324F0C /* Build configuration list for PBXNativeTarget "YaftDB_Tests" */;
+			buildConfigurationList = 6627FC4A1C52D5C1002A927F /* Build configuration list for PBXNativeTarget "YaftDBTests" */;
 			buildPhases = (
-				070B454C7EE87A34CEE30F77 /* Check Pods Manifest.lock */,
-				66BA38231C526BE900324F0C /* Sources */,
-				66BA38241C526BE900324F0C /* Frameworks */,
-				66BA38251C526BE900324F0C /* Resources */,
-				2D76E0A4792777A13F44683D /* Embed Pods Frameworks */,
-				1139B7F9B412266D0355A085 /* Copy Pods Resources */,
+				B881A457AE0551CFD6FAE538 /* Check Pods Manifest.lock */,
+				6627FC411C52D5C1002A927F /* Sources */,
+				6627FC421C52D5C1002A927F /* Frameworks */,
+				6627FC431C52D5C1002A927F /* Resources */,
+				0FB2FB571FC77BB8CCC0CBC0 /* Embed Pods Frameworks */,
+				DC61B6D7B12DBC4EF783737B /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = YaftDB_Tests;
-			productName = YaftDB_Tests;
-			productReference = 66BA38271C526BE900324F0C /* YaftDB_Tests.xctest */;
+			name = YaftDBTests;
+			productName = YaftDBTests;
+			productReference = 6627FC451C52D5C1002A927F /* YaftDBTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -160,12 +159,12 @@
 		607FACC81AFB9204008FA782 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0710;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
-					66BA38261C526BE900324F0C = {
-						CreatedOnToolsVersion = 7.1;
+					6627FC441C52D5C1002A927F = {
+						CreatedOnToolsVersion = 7.2;
 					};
 				};
 			};
@@ -182,13 +181,13 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				66BA38261C526BE900324F0C /* YaftDB_Tests */,
+				6627FC441C52D5C1002A927F /* YaftDBTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		66BA38251C526BE900324F0C /* Resources */ = {
+		6627FC431C52D5C1002A927F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -198,7 +197,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		070B454C7EE87A34CEE30F77 /* Check Pods Manifest.lock */ = {
+		0FB2FB571FC77BB8CCC0CBC0 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Example/Pods/Target Support Files/Pods-YaftDBTests/Pods-YaftDBTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B881A457AE0551CFD6FAE538 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -213,7 +227,7 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		1139B7F9B412266D0355A085 /* Copy Pods Resources */ = {
+		DC61B6D7B12DBC4EF783737B /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -225,32 +239,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Example/Pods/Target Support Files/Pods-YaftDB_Tests/Pods-YaftDB_Tests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2D76E0A4792777A13F44683D /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Example/Pods/Target Support Files/Pods-YaftDB_Tests/Pods-YaftDB_Tests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Example/Pods/Target Support Files/Pods-YaftDBTests/Pods-YaftDBTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		66BA38231C526BE900324F0C /* Sources */ = {
+		6627FC411C52D5C1002A927F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66BA38331C526C1100324F0C /* Tests.swift in Sources */,
+				6627FC481C52D5C1002A927F /* YaftDBTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,27 +338,27 @@
 			};
 			name = Release;
 		};
-		66BA382D1C526BE900324F0C /* Debug */ = {
+		6627FC4B1C52D5C1002A927F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8A5227C67C36AAAB9233532E /* Pods-YaftDB_Tests.debug.xcconfig */;
+			baseConfigurationReference = B81DE6142DB50BC02FCE00A9 /* Pods-YaftDBTests.debug.xcconfig */;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				INFOPLIST_FILE = Example/Tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				INFOPLIST_FILE = YaftDBTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "ru.kolyasev.YaftDB-Tests";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.kolyasev.YaftDBTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		66BA382E1C526BE900324F0C /* Release */ = {
+		6627FC4C1C52D5C1002A927F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2E5EF76B647F441E2CDE9300 /* Pods-YaftDB_Tests.release.xcconfig */;
+			baseConfigurationReference = B86A6E9F30D33021FD53CFC2 /* Pods-YaftDBTests.release.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = Example/Tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				INFOPLIST_FILE = YaftDBTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "ru.kolyasev.YaftDB-Tests";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.kolyasev.YaftDBTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -376,11 +375,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		66BA382C1C526BE900324F0C /* Build configuration list for PBXNativeTarget "YaftDB_Tests" */ = {
+		6627FC4A1C52D5C1002A927F /* Build configuration list for PBXNativeTarget "YaftDBTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				66BA382D1C526BE900324F0C /* Debug */,
-				66BA382E1C526BE900324F0C /* Release */,
+				6627FC4B1C52D5C1002A927F /* Debug */,
+				6627FC4C1C52D5C1002A927F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

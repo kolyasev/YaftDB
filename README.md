@@ -1,6 +1,6 @@
 # YaftDB
 
-[![CI Status](http://img.shields.io/travis/Denis Kolyasev/YaftDB.svg?style=flat)](https://travis-ci.org/Denis Kolyasev/YaftDB)
+[![CI Status](http://img.shields.io/travis/kolyasev/YaftDB.svg?style=flat)](https://travis-ci.org/kolyasev/YaftDB)
 [![Version](https://img.shields.io/cocoapods/v/YaftDB.svg?style=flat)](http://cocoapods.org/pods/YaftDB)
 [![License](https://img.shields.io/cocoapods/l/YaftDB.svg?style=flat)](http://cocoapods.org/pods/YaftDB)
 [![Platform](https://img.shields.io/cocoapods/p/YaftDB.svg?style=flat)](http://cocoapods.org/pods/YaftDB)

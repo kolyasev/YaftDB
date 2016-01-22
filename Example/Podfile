@@ -4,6 +4,6 @@ use_frameworks!
 xcodeproj '../YaftDB.xcodeproj'
 workspace '../YaftDB.xcworkspace'
 
-target 'YaftDB_Tests', :exclusive => true do
+target 'YaftDBTests', :exclusive => true do
   pod "YaftDB", :path => "../"
 end
