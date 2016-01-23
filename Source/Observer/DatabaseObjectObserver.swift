@@ -70,7 +70,7 @@ public class DatabaseObjectObserver<T: DatabaseObject>
         if self.connection.hasChangeForKey(self.key, inCollection: self.collection, inNotifications: notifications)
         {
             // Notify delegate
-            self.delegate?.DatabaseObjectViewDidChangeObject()
+            self.delegate?.databaseObjectViewDidChangeObject()
         }
     }
 
@@ -92,7 +92,7 @@ public protocol DatabaseObjectObserverDelegate: class
 {
 // MARK: Functions
 
-    func DatabaseObjectViewDidChangeObject()
+    func databaseObjectViewDidChangeObject()
 
 }
 
