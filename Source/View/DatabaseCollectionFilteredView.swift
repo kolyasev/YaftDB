@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------
 //
-//  CacheCollectionFilteredView.swift
+//  DatabaseCollectionFilteredView.swift
 //
 //  @author Denis Kolyasev <kolyasev@gmail.com>
 //
@@ -12,7 +12,7 @@ import YapDatabase.YapDatabaseFilteredView
 
 // ----------------------------------------------------------------------------
 
-public class CacheCollectionFilteredView<T: CacheObject>: CacheCollectionView<T>
+public class DatabaseCollectionFilteredView<T: DatabaseObject>: DatabaseCollectionView<T>
 {
 // MARK: Construction
 
@@ -51,7 +51,7 @@ public class CacheCollectionFilteredView<T: CacheObject>: CacheCollectionView<T>
 // MARK: Private Functions
 
     private func databaseExtensionName() -> String {
-        return String(CacheCollectionView<T>) + "_" + String(self.dynamicType)
+        return String(DatabaseCollectionView<T>) + "_" + String(self.dynamicType)
                 + "_" + String(self.dynamicType.version) + "_" + self.collection + "_" + String(T.version)
     }
 

@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------
 //
-//  Cache.swift
+//  Database.swift
 //
 //  @author Denis Kolyasev <kolyasev@gmail.com>
 //
@@ -10,7 +10,7 @@ import YapDatabase
 
 // ----------------------------------------------------------------------------
 
-public class Cache
+public class Database
 {
 // MARK: Construction
 
@@ -18,10 +18,10 @@ public class Cache
     {
         // Init instance variables
         self.database = YapDatabase(path: path,
-                objectSerializer: CacheObjectCoder.serializeObject,
-                objectDeserializer: CacheObjectCoder.deserializerObject,
-                metadataSerializer: CacheObjectMetadataCoder.serializeMetadata,
-                metadataDeserializer: CacheObjectMetadataCoder.deserializerMetadata)
+                objectSerializer: DatabaseObjectCoder.serializeObject,
+                objectDeserializer: DatabaseObjectCoder.deserializerObject,
+                metadataSerializer: DatabaseObjectMetadataCoder.serializeMetadata,
+                metadataDeserializer: DatabaseObjectMetadataCoder.deserializerMetadata)
         self.connection = self.database.newConnection()
     }
 
@@ -33,19 +33,19 @@ public class Cache
 
 // MARK: Public Functions
 
-    public func collection<T>(type: T.Type, name: String) -> CacheCollection<T> {
-        return CacheCollection<T>(name: name, cache: self)
+    public func collection<T>(type: T.Type, name: String) -> DatabaseCollection<T> {
+        return DatabaseCollection<T>(name: name, database: self)
     }
 
 // MARK: Internal Functions
 
-    func put(collection collection: String, key: String, object: CacheObject)
+    func put(collection collection: String, key: String, object: DatabaseObject)
     {
-        let metadata = CacheObjectMetadata(hash: object.hash)
+        let metadata = DatabaseObjectMetadata(hash: object.hash)
 
         // Write to database
         self.connection.asyncReadWriteWithBlock { transaction in
-            if let existingMetadata = (transaction.metadataForKey(key, inCollection: collection) as? CacheObjectMetadata)
+            if let existingMetadata = (transaction.metadataForKey(key, inCollection: collection) as? DatabaseObjectMetadata)
                 where (existingMetadata.hash == metadata.hash)
             {
                 // TODO: Update metadata only
@@ -56,15 +56,15 @@ public class Cache
         }
     }
 
-    func put(collection collection: String, entities: [(key: String, object: CacheObject)])
+    func put(collection collection: String, entities: [(key: String, object: DatabaseObject)])
     {
         // Write to database
         self.connection.asyncReadWriteWithBlock { transaction in
             for (key, object) in entities
             {
-                let metadata = CacheObjectMetadata(hash: object.hash)
+                let metadata = DatabaseObjectMetadata(hash: object.hash)
 
-                if let existingMetadata = (transaction.metadataForKey(key, inCollection: collection) as? CacheObjectMetadata)
+                if let existingMetadata = (transaction.metadataForKey(key, inCollection: collection) as? DatabaseObjectMetadata)
                    where (existingMetadata.hash == metadata.hash)
                 {
                     // TODO: Update metadata only
@@ -76,7 +76,7 @@ public class Cache
         }
     }
 
-    func get<T: CacheObject>(type: T.Type, collection: String, key: String) -> T?
+    func get<T: DatabaseObject>(type: T.Type, collection: String, key: String) -> T?
     {
         var result: T?
 
@@ -85,11 +85,10 @@ public class Cache
             result = transaction.objectForKey(key, inCollection: collection) as? T
         }
 
-        // Done
         return result
     }
 
-    func get<T: CacheObject>(type: T.Type, collection: String, keys: [String]) -> [String: T?]
+    func get<T: DatabaseObject>(type: T.Type, collection: String, keys: [String]) -> [String: T?]
     {
         var result: [String: T?] = [:]
 
@@ -100,11 +99,10 @@ public class Cache
             }
         }
 
-        // Done
         return result
     }
 
-    func filterKeys<T: CacheObject>(type: T.Type, collection: String, block: (String) -> Bool) -> [String]
+    func filterKeys<T: DatabaseObject>(type: T.Type, collection: String, block: (String) -> Bool) -> [String]
     {
         var result: [String] = []
 
@@ -117,11 +115,10 @@ public class Cache
             }
         }
 
-        // Done
         return result
     }
 
-    func filterByKey<T: CacheObject>(collection collection: String, block: (String) -> Bool) -> [T]
+    func filterByKey<T: DatabaseObject>(collection collection: String, block: (String) -> Bool) -> [T]
     {
         var result: [T] = []
 
@@ -137,11 +134,10 @@ public class Cache
             }
         }
 
-        // Done
         return result
     }
 
-    func filter<T: CacheObject>(type: T.Type, collection: String, block: (T) -> Bool) -> [T]
+    func filter<T: DatabaseObject>(type: T.Type, collection: String, block: (T) -> Bool) -> [T]
     {
         var result: [T] = []
 
@@ -154,15 +150,14 @@ public class Cache
             }
         }
 
-        // Done
         return result
     }
 
-    func delete<T: CacheObject>(type: T.Type, collection: String, key: String) {
+    func delete<T: DatabaseObject>(type: T.Type, collection: String, key: String) {
         delete(type, collection: collection, keys: [key])
     }
 
-    func delete<T: CacheObject>(type: T.Type, collection: String, keys: [String])
+    func delete<T: DatabaseObject>(type: T.Type, collection: String, keys: [String])
     {
         // Write to database
         self.connection.readWriteWithBlock { transaction in

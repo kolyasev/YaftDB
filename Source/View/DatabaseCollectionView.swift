@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------
 //
-//  CacheCollectionView.swift
+//  DatabaseCollectionView.swift
 //
 //  @author Denis Kolyasev <kolyasev@gmail.com>
 //
@@ -11,7 +11,7 @@ import YapDatabase.YapDatabaseView
 
 // ----------------------------------------------------------------------------
 
-public class CacheCollectionView<T: CacheObject>: CacheCollectionViewProtocol
+public class DatabaseCollectionView<T: DatabaseObject>: DatabaseCollectionViewProtocol
 {
 // MARK: Construction
 
@@ -86,7 +86,7 @@ public class CacheCollectionView<T: CacheObject>: CacheCollectionViewProtocol
     }
 
     private func databaseExtensionName() -> String {
-        return String(CacheCollectionView<T>) + "_" + String(self.dynamicType)
+        return String(DatabaseCollectionView<T>) + "_" + String(self.dynamicType)
                 + "_" + String(self.dynamicType.version) + "_" + self.collection + "_" + String(T.version)
     }
 
@@ -98,7 +98,7 @@ public class CacheCollectionView<T: CacheObject>: CacheCollectionViewProtocol
 
 // ----------------------------------------------------------------------------
 
-public protocol CacheCollectionViewProtocol
+public protocol DatabaseCollectionViewProtocol
 {
 // MARK: Construction
 

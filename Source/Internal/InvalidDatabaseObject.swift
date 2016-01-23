@@ -1,12 +1,12 @@
 // ----------------------------------------------------------------------------
 //
-//  InvalidCacheObject.swift
+//  InvalidDatabaseObject.swift
 //
 //  @author Denis Kolyasev <kolyasev@gmail.com>
 //
 // ----------------------------------------------------------------------------
 
-class InvalidCacheObject: CacheObject
+class InvalidDatabaseObject: DatabaseObject
 {
 // MARK: Construction
 

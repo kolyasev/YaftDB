@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------
 //
-//  CacheObjectObserver.swift
+//  DatabaseObjectObserver.swift
 //
 //  @author Denis Kolyasev <kolyasev@gmail.com>
 //
@@ -11,7 +11,7 @@ import YapDatabase
 
 // ----------------------------------------------------------------------------
 
-public class CacheObjectObserver<T: CacheObject>
+public class DatabaseObjectObserver<T: DatabaseObject>
 {
 // MARK: Construction
 
@@ -55,11 +55,10 @@ public class CacheObjectObserver<T: CacheObject>
             result = transaction.objectForKey(key, inCollection: collection) as? T
         }
 
-        // Done
         return result
     }
 
-    public weak var delegate: CacheObjectObserverDelegate?
+    public weak var delegate: DatabaseObjectObserverDelegate?
 
 // MARK: Private Functions
 
@@ -71,7 +70,7 @@ public class CacheObjectObserver<T: CacheObject>
         if self.connection.hasChangeForKey(self.key, inCollection: self.collection, inNotifications: notifications)
         {
             // Notify delegate
-            self.delegate?.cacheObjectViewDidChangeObject()
+            self.delegate?.DatabaseObjectViewDidChangeObject()
         }
     }
 
@@ -89,11 +88,11 @@ public class CacheObjectObserver<T: CacheObject>
 
 // ----------------------------------------------------------------------------
 
-public protocol CacheObjectObserverDelegate: class
+public protocol DatabaseObjectObserverDelegate: class
 {
 // MARK: Functions
 
-    func cacheObjectViewDidChangeObject()
+    func DatabaseObjectViewDidChangeObject()
 
 }
 

@@ -15,7 +15,7 @@ class YaftDBTests: XCTestCase {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
 
-        let ch = Cache(path: "")
+        let database = Database(path: "")
     }
     
     override func tearDown() {

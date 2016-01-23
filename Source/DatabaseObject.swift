@@ -1,12 +1,12 @@
 // ----------------------------------------------------------------------------
 //
-//  CacheObject.swift
+//  DatabaseObject.swift
 //
 //  @author Denis Kolyasev <kolyasev@gmail.com>
 //
 // ----------------------------------------------------------------------------
 
-public protocol CacheObject: class
+public protocol DatabaseObject: class
 {
 // MARK: Construction
 

@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------
 //
-//  CacheObjectObserver.swift
+//  DatabaseObjectObserver.swift
 //
 //  @author Denis Kolyasev <kolyasev@gmail.com>
 //
@@ -11,7 +11,7 @@ import YapDatabase
 
 // ----------------------------------------------------------------------------
 
-public class CacheCollectionViewObserver<V: CacheCollectionViewProtocol>
+public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol>
 {
 // MARK: Construction
 
@@ -50,7 +50,7 @@ public class CacheCollectionViewObserver<V: CacheCollectionViewProtocol>
 
 // MARK: Properties
 
-    public weak var delegate: CacheCollectionViewDelegate?
+    public weak var delegate: DatabaseCollectionViewDelegate?
 
 // MARK: Functions
 
@@ -72,7 +72,6 @@ public class CacheCollectionViewObserver<V: CacheCollectionViewProtocol>
             }
         }
 
-        // Done
         return result
     }
 
@@ -92,21 +91,21 @@ public class CacheCollectionViewObserver<V: CacheCollectionViewProtocol>
         if let rowChanges = (rowChanges as? [YapDatabaseViewRowChange]) where !(rowChanges.isEmpty)
         {
             // Notify delegate
-            self.delegate?.cacheCollectionViewBeginUpdates()
+            self.delegate?.databaseCollectionViewBeginUpdates()
 
             for rowChange in rowChanges
             {
-                let changeType = CacheCollectionViewChangeType(type: rowChange.type)
+                let changeType = DatabaseCollectionViewChangeType(type: rowChange.type)
                 let index = Int(rowChange.originalIndex)
                 let newIndex = Int(rowChange.finalIndex)
-                let change = CacheCollectionViewChange(index: index, newIndex: newIndex, changeType: changeType)
+                let change = DatabaseCollectionViewChange(index: index, newIndex: newIndex, changeType: changeType)
 
                 // Notify delegate
-                self.delegate?.cacheCollectionViewDidChange(change)
+                self.delegate?.databaseCollectionViewDidChange(change)
             }
 
             // Notify delegate
-            self.delegate?.cacheCollectionViewEndUpdates()
+            self.delegate?.databaseCollectionViewEndUpdates()
         }
     }
 
@@ -132,25 +131,25 @@ public class CacheCollectionViewObserver<V: CacheCollectionViewProtocol>
 
 // ----------------------------------------------------------------------------
 
-public protocol CacheCollectionViewDelegate: class
+public protocol DatabaseCollectionViewDelegate: class
 {
 // MARK: Functions
 
-    func cacheCollectionViewBeginUpdates()
+    func databaseCollectionViewBeginUpdates()
 
-    func cacheCollectionViewDidChange(change: CacheCollectionViewChange)
+    func databaseCollectionViewDidChange(change: DatabaseCollectionViewChange)
 
-    func cacheCollectionViewEndUpdates()
+    func databaseCollectionViewEndUpdates()
 
 }
 
 // ----------------------------------------------------------------------------
 
-public class CacheCollectionViewChange
+public class DatabaseCollectionViewChange
 {
 // MARK: Construction
 
-    init(index: Int, newIndex: Int, changeType: CacheCollectionViewChangeType)
+    init(index: Int, newIndex: Int, changeType: DatabaseCollectionViewChangeType)
     {
         // Init instance variables
         self.index = index
@@ -164,13 +163,13 @@ public class CacheCollectionViewChange
 
     public let newIndex: Int
 
-    public let type: CacheCollectionViewChangeType
+    public let type: DatabaseCollectionViewChangeType
 
 }
 
 // ----------------------------------------------------------------------------
 
-public enum CacheCollectionViewChangeType
+public enum DatabaseCollectionViewChangeType
 {
 // MARK: Construction
 

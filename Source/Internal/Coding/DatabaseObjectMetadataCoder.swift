@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------
 //
-//  CacheObjectCoder.swift
+//  DatabaseObjectCoder.swift
 //
 //  @author Denis Kolyasev <kolyasev@gmail.com>
 //
@@ -10,7 +10,7 @@ import Foundation
 
 // ----------------------------------------------------------------------------
 
-class CacheObjectMetadataCoder
+class DatabaseObjectMetadataCoder
 {
 // MARK: Functions
 
@@ -18,7 +18,7 @@ class CacheObjectMetadataCoder
     {
         let result = NSMutableData()
 
-        if let metadata = (metadata as? CacheObjectMetadata)
+        if let metadata = (metadata as? DatabaseObjectMetadata)
         {
             let archiver = NSKeyedArchiver(forWritingWithMutableData: result)
 
@@ -33,13 +33,12 @@ class CacheObjectMetadataCoder
             fatalError("Can not serialize metadata of type '\(metadata.dynamicType)'.")
         }
 
-        // Done
         return result
     }
 
     class func deserializerMetadata(collection: String, key: String, data: NSData) -> AnyObject
     {
-        let result: CacheObjectMetadata
+        let result: DatabaseObjectMetadata
 
         // Init unarchiver for reading data
         let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
@@ -48,13 +47,12 @@ class CacheObjectMetadataCoder
         let hash = unarchiver.decodeIntegerForKey(ArchiverKeys.Hash)
         if let timestamp = (unarchiver.decodeObjectForKey(ArchiverKeys.Timestamp) as? NSDate)
         {
-            result = CacheObjectMetadata(hash: hash, timestamp: timestamp)
+            result = DatabaseObjectMetadata(hash: hash, timestamp: timestamp)
         }
         else {
             fatalError("Can not deserialize metadata from collection '\(collection)' with key '\(key)'.")
         }
-        
-        // Done
+
         return result
     }
 

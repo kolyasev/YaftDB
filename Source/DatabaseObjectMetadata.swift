@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------
 //
-//  CacheObjectMetadata.swift
+//  DatabaseObjectMetadata.swift
 //
 //  @author Denis Kolyasev <kolyasev@gmail.com>
 //
@@ -10,7 +10,7 @@ import Foundation
 
 // ----------------------------------------------------------------------------
 
-class CacheObjectMetadata
+class DatabaseObjectMetadata
 {
 // MARK: Construction
 
