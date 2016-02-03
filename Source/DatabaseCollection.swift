@@ -40,6 +40,16 @@ public class DatabaseCollection<T: DatabaseObject>
         return DatabaseCollectionViewObserver<V>(view: view, connection: connection)
     }
 
+    public func observe<V: DatabaseCollectionViewProtocol where V.Object == T, V.Grouping == FlatGrouping>(viewType: V.Type) -> DatabaseCollectionViewObserver<V>
+    {
+        let view = viewType.init(collection: self.name)
+
+        view.registerExtensionInDatabase(self.database.database)
+
+        let connection = self.database.database.newConnection()
+        return DatabaseCollectionViewObserver<V>(view: view, connection: connection)
+    }
+
 // MARK: Functions: Operations
 
     public func put(key: String, object: T) {
