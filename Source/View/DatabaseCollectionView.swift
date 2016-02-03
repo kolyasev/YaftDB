@@ -11,7 +11,7 @@ import YapDatabase.YapDatabaseView
 
 // ----------------------------------------------------------------------------
 
-public class DatabaseCollectionView<T: DatabaseObject>: DatabaseCollectionViewProtocol
+public class DatabaseCollectionView<T: DatabaseObject, G: RawRepresentable where G.RawValue == String>: DatabaseCollectionViewProtocol
 {
 // MARK: Construction
 
@@ -29,12 +29,16 @@ public class DatabaseCollectionView<T: DatabaseObject>: DatabaseCollectionViewPr
 
 // MARK: Public Functions
 
-    public class func filter(key: String, object: T) -> Bool {
-        return true
+    public class func filter(key: String, object: T) -> G? {
+        return nil
     }
 
     public class func isOrderedBefore(key1 key1: String, object1: T, key2: String, object2: T) -> Bool {
         return true
+    }
+
+    public class func allGroups() -> [G] {
+        return []
     }
 
 // MARK: Inner Functions
@@ -70,11 +74,8 @@ public class DatabaseCollectionView<T: DatabaseObject>: DatabaseCollectionViewPr
             // Filter by type
             guard let object = (object as? T) else { return nil }
 
-            // Filter by class filter function
-            guard self.filter(key, object: object) else { return nil }
-
-            // Use root group
-            return "root"
+            // Filter and group by class filter function
+            return self.filter(key, object: object)?.rawValue
         }
     }
 
@@ -86,13 +87,19 @@ public class DatabaseCollectionView<T: DatabaseObject>: DatabaseCollectionViewPr
     }
 
     private func databaseExtensionName() -> String {
-        return String(DatabaseCollectionView<T>) + "_" + String(self.dynamicType)
+        return String(DatabaseCollectionView<T, G>) + "_" + String(ImplementationVersion) + "_" + String(self.dynamicType)
                 + "_" + String(self.dynamicType.version) + "_" + self.collection + "_" + String(T.version)
     }
 
 // MARK: Inner Types
 
     public typealias Object = T
+
+    public typealias Grouping = G
+
+// MARK: Constants
+
+    private let ImplementationVersion: Int = 1
 
 }
 
@@ -110,9 +117,13 @@ public protocol DatabaseCollectionViewProtocol
 
     func registerExtensionInDatabase(database: YapDatabase)
 
+    static func allGroups() -> [Grouping]
+
 // MARK: Inner Types
 
     typealias Object
+
+    typealias Grouping
 
 }
 

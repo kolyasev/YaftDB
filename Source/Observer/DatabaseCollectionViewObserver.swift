@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------
 //
-//  DatabaseObjectObserver.swift
+//  DatabaseCollectionViewObserver.swift
 //
 //  @author Denis Kolyasev <kolyasev@gmail.com>
 //
@@ -11,7 +11,7 @@ import YapDatabase
 
 // ----------------------------------------------------------------------------
 
-public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol>
+public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol where V.Grouping: RawRepresentable, V.Grouping.RawValue == String>
 {
 // MARK: Construction
 
@@ -25,7 +25,8 @@ public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol>
         self.connection.beginLongLivedReadTransaction()
 
         // Create mappings
-        self.mappings = YapDatabaseViewMappings(groups: ["root"], view: self.view.name())
+        let allGroups = V.allGroups().map{ $0.rawValue }
+        self.mappings = YapDatabaseViewMappings(groups: allGroups, view: self.view.name())
 
         // Register for notifications
         weak var weakSelf = self
@@ -50,15 +51,55 @@ public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol>
 
 // MARK: Properties
 
-    public weak var delegate: DatabaseCollectionViewDelegate?
+    public weak var delegate: DatabaseCollectionViewObserverDelegate?
 
 // MARK: Functions
 
-    public func numberOfObjects() -> Int {
-        return Int(self.mappings.numberOfItemsInSection(0))
+    public func numberOfGroups() -> Int {
+        return self.mappings.allGroups.count
     }
 
-    public func objectAtIndex(idx: Int) -> T!
+    public func numberOfObjectsInGroup(group: G) -> Int {
+        return Int(self.mappings.numberOfItemsInGroup(group.rawValue))
+    }
+
+    public func objectInGroup(group: G, atIndex index: Int) -> T!
+    {
+        let section = mappings.sectionForGroup(group.rawValue)
+        return objectInSection(Int(section), atIndex: index)
+    }
+
+    public func allObjectsInGroup(group: G) -> [T]
+    {
+        var result: [T] = []
+
+        let viewName = self.view.name()
+
+        self.connection.readWithBlock { transaction in
+            if let viewTransactions = (transaction.ext(viewName) as? YapDatabaseViewTransaction)
+            {
+                viewTransactions.enumerateRowsInGroup(group.rawValue, usingBlock: { collection, key, object, metadata, idx, stop in
+                    if let object = (object as? T) {
+                        result.append(object)
+                    }
+                })
+            }
+        }
+
+        return result
+    }
+
+// MARK: Functions: Section Helpers
+
+    public func numberOfSections() -> Int {
+        return Int(self.mappings.numberOfSections())
+    }
+
+    public func numberOfObjectsInSection(section: Int) -> Int {
+        return Int(self.mappings.numberOfItemsInSection(UInt(section)))
+    }
+
+    public func objectInSection(section: Int, atIndex index: Int) -> T!
     {
         var result: T!
 
@@ -68,7 +109,7 @@ public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol>
         self.connection.readWithBlock { transaction in
             if let viewTransactions = (transaction.ext(viewName) as? YapDatabaseViewTransaction)
             {
-                result = viewTransactions.objectAtRow(UInt(idx), inSection: 0, withMappings: mappings) as? T
+                result = viewTransactions.objectAtRow(UInt(index), inSection: UInt(section), withMappings: mappings) as? T
             }
         }
 
@@ -91,21 +132,18 @@ public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol>
         if let rowChanges = (rowChanges as? [YapDatabaseViewRowChange]) where !(rowChanges.isEmpty)
         {
             // Notify delegate
-            self.delegate?.databaseCollectionViewBeginUpdates()
+            self.delegate?.databaseCollectionViewObserverBeginUpdates()
 
             for rowChange in rowChanges
             {
-                let changeType = DatabaseCollectionViewChangeType(type: rowChange.type)
-                let index = Int(rowChange.originalIndex)
-                let newIndex = Int(rowChange.finalIndex)
-                let change = DatabaseCollectionViewChange(index: index, newIndex: newIndex, changeType: changeType)
+                let change = DatabaseCollectionViewChange(rowChange: rowChange)
 
                 // Notify delegate
-                self.delegate?.databaseCollectionViewDidChange(change)
+                self.delegate?.databaseCollectionViewObserverDidChange(change)
             }
 
             // Notify delegate
-            self.delegate?.databaseCollectionViewEndUpdates()
+            self.delegate?.databaseCollectionViewObserverEndUpdates()
         }
     }
 
@@ -116,6 +154,8 @@ public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol>
 // MARK: Inner Types
 
     typealias T = V.Object
+
+    typealias G = V.Grouping
 
 // MARK: Variables
 
@@ -131,15 +171,31 @@ public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol>
 
 // ----------------------------------------------------------------------------
 
-public protocol DatabaseCollectionViewDelegate: class
+public protocol DatabaseCollectionViewObserverDelegate: class
 {
 // MARK: Functions
 
-    func databaseCollectionViewBeginUpdates()
+    func databaseCollectionViewObserverBeginUpdates()
 
-    func databaseCollectionViewDidChange(change: DatabaseCollectionViewChange)
+    func databaseCollectionViewObserverDidChange(change: DatabaseCollectionViewChange)
 
-    func databaseCollectionViewEndUpdates()
+    func databaseCollectionViewObserverEndUpdates()
+
+}
+
+// ----------------------------------------------------------------------------
+// Default implementation for DatabaseCollectionViewObserverDelegate
+// ----------------------------------------------------------------------------
+
+public extension DatabaseCollectionViewObserverDelegate
+{
+// MARK: Functions
+
+    public func databaseCollectionViewObserverBeginUpdates() {}
+
+    public func databaseCollectionViewObserverDidChange(change: DatabaseCollectionViewChange) {}
+
+    public func databaseCollectionViewObserverEndUpdates() {}
 
 }
 
@@ -149,19 +205,19 @@ public class DatabaseCollectionViewChange
 {
 // MARK: Construction
 
-    init(index: Int, newIndex: Int, changeType: DatabaseCollectionViewChangeType)
+    init(rowChange: YapDatabaseViewRowChange)
     {
         // Init instance variables
-        self.index = index
-        self.newIndex = newIndex
-        self.type = changeType
+        self.indexPath = rowChange.indexPath
+        self.newIndexPath = rowChange.newIndexPath
+        self.type = DatabaseCollectionViewChangeType(type: rowChange.type)
     }
 
 // MARK: Properties
 
-    public let index: Int
+    public let indexPath: NSIndexPath
 
-    public let newIndex: Int
+    public let newIndexPath: NSIndexPath
 
     public let type: DatabaseCollectionViewChangeType
 
