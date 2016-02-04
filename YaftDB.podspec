@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "YaftDB"
-  s.version          = "0.1.3"
+  s.version          = "0.1.4"
   s.summary          = "Yet another Swift wrapper for YapDatabase"
   s.homepage         = "https://github.com/kolyasev/YaftDB"
   s.license          = 'MIT'
