@@ -26,6 +26,10 @@ public class DatabaseCollectionFilteredView<T: DatabaseObject, G: RawRepresentab
         return true
     }
 
+    public func filterVersionTag() -> String {
+        return NSUUID().UUIDString
+    }
+
 // MARK: Inner Functions
 
     public override func registerExtensionInDatabase(database: YapDatabase) {
@@ -38,7 +42,7 @@ public class DatabaseCollectionFilteredView<T: DatabaseObject, G: RawRepresentab
         }
 
         // Init filtered database view
-        let view = YapDatabaseFilteredView(parentViewName: super.name(), filtering: filtering, versionTag: nil)
+        let view = YapDatabaseFilteredView(parentViewName: super.name(), filtering: filtering, versionTag: filterVersionTag())
 
         // Register extension
         database.registerExtension(view, withName: databaseExtensionName())
@@ -51,7 +55,7 @@ public class DatabaseCollectionFilteredView<T: DatabaseObject, G: RawRepresentab
 // MARK: Private Functions
 
     private func databaseExtensionName() -> String {
-        return String(DatabaseCollectionView<T, G>) + "_" + String(ImplementationVersion) + "_" + String(self.dynamicType)
+        return String(DatabaseCollectionFilteredView<T, G>) + "_" + String(ImplementationVersion) + "_" + String(self.dynamicType)
                 + "_" + String(self.dynamicType.version) + "_" + self.collection + "_" + String(T.version)
     }
 

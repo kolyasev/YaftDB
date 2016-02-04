@@ -25,7 +25,7 @@ public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol wh
         self.connection.beginLongLivedReadTransaction()
 
         // Create mappings
-        let allGroups = V.allGroups().map{ $0.rawValue }
+        let allGroups = view.dynamicType.allGroups().map{ $0.rawValue }
         self.mappings = YapDatabaseViewMappings(groups: allGroups, view: self.view.name())
 
         // Register for notifications
