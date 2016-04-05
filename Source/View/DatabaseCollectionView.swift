@@ -121,9 +121,9 @@ public protocol DatabaseCollectionViewProtocol
 
 // MARK: Inner Types
 
-    typealias Object
+    associatedtype Object
 
-    typealias Grouping
+    associatedtype Grouping
 
 }
 

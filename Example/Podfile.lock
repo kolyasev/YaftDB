@@ -7,50 +7,50 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.2.0):
     - CocoaLumberjack/Default
-  - YaftDB (0.1.1):
+  - YaftDB (0.1.4):
     - YapDatabase (~> 2.7)
-  - YapDatabase (2.8.1):
-    - YapDatabase/Standard (= 2.8.1)
-  - YapDatabase/Standard (2.8.1):
-    - YapDatabase/Standard/Core (= 2.8.1)
-    - YapDatabase/Standard/Extensions (= 2.8.1)
-  - YapDatabase/Standard/Core (2.8.1):
+  - YapDatabase (2.8.3):
+    - YapDatabase/Standard (= 2.8.3)
+  - YapDatabase/Standard (2.8.3):
+    - YapDatabase/Standard/Core (= 2.8.3)
+    - YapDatabase/Standard/Extensions (= 2.8.3)
+  - YapDatabase/Standard/Core (2.8.3):
     - CocoaLumberjack (~> 2)
-  - YapDatabase/Standard/Extensions (2.8.1):
+  - YapDatabase/Standard/Extensions (2.8.3):
     - YapDatabase/Standard/Core
-    - YapDatabase/Standard/Extensions/CloudKit (= 2.8.1)
-    - YapDatabase/Standard/Extensions/ConnectionProxy (= 2.8.1)
-    - YapDatabase/Standard/Extensions/FilteredViews (= 2.8.1)
-    - YapDatabase/Standard/Extensions/FullTextSearch (= 2.8.1)
-    - YapDatabase/Standard/Extensions/Hooks (= 2.8.1)
-    - YapDatabase/Standard/Extensions/Relationships (= 2.8.1)
-    - YapDatabase/Standard/Extensions/RTreeIndex (= 2.8.1)
-    - YapDatabase/Standard/Extensions/SearchResults (= 2.8.1)
-    - YapDatabase/Standard/Extensions/SecondaryIndex (= 2.8.1)
-    - YapDatabase/Standard/Extensions/SecondaryIndex (= 2.8.1)
-    - YapDatabase/Standard/Extensions/Views (= 2.8.1)
-  - YapDatabase/Standard/Extensions/CloudKit (2.8.1):
+    - YapDatabase/Standard/Extensions/CloudKit (= 2.8.3)
+    - YapDatabase/Standard/Extensions/ConnectionProxy (= 2.8.3)
+    - YapDatabase/Standard/Extensions/FilteredViews (= 2.8.3)
+    - YapDatabase/Standard/Extensions/FullTextSearch (= 2.8.3)
+    - YapDatabase/Standard/Extensions/Hooks (= 2.8.3)
+    - YapDatabase/Standard/Extensions/Relationships (= 2.8.3)
+    - YapDatabase/Standard/Extensions/RTreeIndex (= 2.8.3)
+    - YapDatabase/Standard/Extensions/SearchResults (= 2.8.3)
+    - YapDatabase/Standard/Extensions/SecondaryIndex (= 2.8.3)
+    - YapDatabase/Standard/Extensions/SecondaryIndex (= 2.8.3)
+    - YapDatabase/Standard/Extensions/Views (= 2.8.3)
+  - YapDatabase/Standard/Extensions/CloudKit (2.8.3):
     - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/ConnectionProxy (2.8.1):
+  - YapDatabase/Standard/Extensions/ConnectionProxy (2.8.3):
     - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/FilteredViews (2.8.1):
+  - YapDatabase/Standard/Extensions/FilteredViews (2.8.3):
     - YapDatabase/Standard/Core
     - YapDatabase/Standard/Extensions/Views
-  - YapDatabase/Standard/Extensions/FullTextSearch (2.8.1):
+  - YapDatabase/Standard/Extensions/FullTextSearch (2.8.3):
     - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/Hooks (2.8.1):
+  - YapDatabase/Standard/Extensions/Hooks (2.8.3):
     - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/Relationships (2.8.1):
+  - YapDatabase/Standard/Extensions/Relationships (2.8.3):
     - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/RTreeIndex (2.8.1):
+  - YapDatabase/Standard/Extensions/RTreeIndex (2.8.3):
     - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/SearchResults (2.8.1):
+  - YapDatabase/Standard/Extensions/SearchResults (2.8.3):
     - YapDatabase/Standard/Core
     - YapDatabase/Standard/Extensions/FullTextSearch
     - YapDatabase/Standard/Extensions/Views
-  - YapDatabase/Standard/Extensions/SecondaryIndex (2.8.1):
+  - YapDatabase/Standard/Extensions/SecondaryIndex (2.8.3):
     - YapDatabase/Standard/Core
-  - YapDatabase/Standard/Extensions/Views (2.8.1):
+  - YapDatabase/Standard/Extensions/Views (2.8.3):
     - YapDatabase/Standard/Core
 
 DEPENDENCIES:
@@ -62,7 +62,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
-  YaftDB: 7f31d5e2a1caae04e065e1e523c67126f3d9c63b
-  YapDatabase: 861c720d5850a59f9e5c0bad0fd95334012b9dc9
+  YaftDB: 1f91de2bd1e6f1519680522322fe2d01f438972a
+  YapDatabase: 15b6867a07ff30eac3af28794cd2262b4d0ca4ca
 
 COCOAPODS: 0.39.0
