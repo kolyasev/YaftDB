@@ -33,7 +33,7 @@ public class Database
 
 // MARK: Public Functions
 
-    public func collection<T>(type: T.Type, name: String) -> DatabaseCollection<T> {
+    public func collection<T>(type: T.Type = T.self, name: String) -> DatabaseCollection<T> {
         return DatabaseCollection<T>(name: name, database: self)
     }
 
