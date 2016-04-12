@@ -43,6 +43,8 @@ public class DatabaseObjectObserver<T: DatabaseObject>
 
 // MARK: Properties
 
+    public var callback: CallbackBlock?
+
     public var object: T?
     {
         var result: T?
@@ -58,8 +60,6 @@ public class DatabaseObjectObserver<T: DatabaseObject>
         return result
     }
 
-    public weak var delegate: DatabaseObjectObserverDelegate?
-
 // MARK: Private Functions
 
     private func handleDatabaseModifiedNotification(notification: NSNotification)
@@ -70,9 +70,13 @@ public class DatabaseObjectObserver<T: DatabaseObject>
         if self.connection.hasChangeForKey(self.key, inCollection: self.collection, inNotifications: notifications)
         {
             // Notify delegate
-            self.delegate?.databaseObjectViewDidChangeObject()
+            self.callback?(self.object)
         }
     }
+
+// MARK: Inner Types
+
+    public typealias CallbackBlock = (T?) -> Void
 
 // MARK: Variables
 
@@ -83,16 +87,6 @@ public class DatabaseObjectObserver<T: DatabaseObject>
     private let connection: YapDatabaseConnection
 
     private var notificationObserver: AnyObject?
-
-}
-
-// ----------------------------------------------------------------------------
-
-public protocol DatabaseObjectObserverDelegate: class
-{
-// MARK: Functions
-
-    func databaseObjectViewDidChangeObject()
 
 }
 
