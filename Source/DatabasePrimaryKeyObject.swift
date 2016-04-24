@@ -28,6 +28,10 @@ extension DatabaseCollection where T: DatabasePrimaryKeyObject
         self.database.put(collection: self.name, entities: objects.map { (key: $0.primaryKey, object: $0) })
     }
 
+    public func replaceAll(objects: [T]) {
+        self.database.replaceAll(collection: self.name, entities: objects.map { (key: $0.primaryKey, object: $0) })
+    }
+
 }
 
 // ----------------------------------------------------------------------------

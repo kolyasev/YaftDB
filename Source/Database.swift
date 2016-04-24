@@ -12,7 +12,7 @@ import YapDatabase
 
 public class Database
 {
-// MARK: Construction
+// MARK: - Construction
 
     public init(path: String)
     {
@@ -25,34 +25,25 @@ public class Database
         self.connection = self.database.newConnection()
     }
 
-// MARK: Properties
+// MARK: - Properties
 
     let database: YapDatabase
 
     let connection: YapDatabaseConnection
 
-// MARK: Public Functions
+// MARK: - Public Functions
 
     public func collection<T>(type: T.Type = T.self, name: String) -> DatabaseCollection<T> {
         return DatabaseCollection<T>(name: name, database: self)
     }
 
-// MARK: Internal Functions
+// MARK: - Internal Functions
 
     func put(collection collection: String, key: String, object: DatabaseObject)
     {
-        let metadata = DatabaseObjectMetadata(hash: object.hash)
-
         // Write to database
         self.connection.asyncReadWriteWithBlock { transaction in
-            if let existingMetadata = (transaction.metadataForKey(key, inCollection: collection) as? DatabaseObjectMetadata)
-                where (existingMetadata.hash == metadata.hash)
-            {
-                // TODO: Update metadata only
-            }
-            else {
-                transaction.setObject(object, forKey: key, inCollection: collection, withMetadata: metadata)
-            }
+            Database.putObjectWithTransaction(transaction, collection: collection, key: key, object: object)
         }
     }
 
@@ -60,18 +51,8 @@ public class Database
     {
         // Write to database
         self.connection.asyncReadWriteWithBlock { transaction in
-            for (key, object) in entities
-            {
-                let metadata = DatabaseObjectMetadata(hash: object.hash)
-
-                if let existingMetadata = (transaction.metadataForKey(key, inCollection: collection) as? DatabaseObjectMetadata)
-                   where (existingMetadata.hash == metadata.hash)
-                {
-                    // TODO: Update metadata only
-                }
-                else {
-                    transaction.setObject(object, forKey: key, inCollection: collection, withMetadata: metadata)
-                }
+            for (key, object) in entities {
+                Database.putObjectWithTransaction(transaction, collection: collection, key: key, object: object)
             }
         }
     }
@@ -153,21 +134,55 @@ public class Database
         return result
     }
 
-    func delete<T: DatabaseObject>(type: T.Type, collection: String, key: String) {
-        delete(type, collection: collection, keys: [key])
+    func remove<T: DatabaseObject>(type: T.Type, collection: String, key: String) {
+        remove(type, collection: collection, keys: [key])
     }
 
-    func delete<T: DatabaseObject>(type: T.Type, collection: String, keys: [String])
+    func remove<T: DatabaseObject>(type: T.Type, collection: String, keys: [String])
     {
         // Write to database
-        self.connection.readWriteWithBlock { transaction in
+        self.connection.asyncReadWriteWithBlock { transaction in
             transaction.removeObjectsForKeys(keys, inCollection: collection)
         }
     }
 
-// MARK: Variables
+    func removeAll<T: DatabaseObject>(type: T.Type, collection: String)
+    {
+        // Write to database
+        self.connection.asyncReadWriteWithBlock { transaction in
+            transaction.removeAllObjectsInCollection(collection)
+        }
+    }
 
-    // ...
+    func replaceAll(collection collection: String, entities: [(key: String, object: DatabaseObject)])
+    {
+        // Write to database
+        self.connection.asyncReadWriteWithBlock { transaction in
+            // TODO: Remove only objects that not contained in `entities`
+            transaction.removeAllObjectsInCollection(collection)
+
+            for (key, object) in entities {
+                Database.putObjectWithTransaction(transaction, collection: collection, key: key, object: object)
+            }
+        }
+    }
+
+// MARK: - Private Functions
+
+    private static func putObjectWithTransaction(transaction: YapDatabaseReadWriteTransaction,
+                                                 collection: String, key: String, object: DatabaseObject)
+    {
+        let metadata = DatabaseObjectMetadata(hash: object.hash)
+
+        if let existingMetadata = (transaction.metadataForKey(key, inCollection: collection) as? DatabaseObjectMetadata)
+            where (existingMetadata.hash == metadata.hash)
+        {
+            // TODO: Update metadata only
+        }
+        else {
+            transaction.setObject(object, forKey: key, inCollection: collection, withMetadata: metadata)
+        }
+    }
 
 }
 

@@ -70,12 +70,20 @@ public class DatabaseCollection<T: DatabaseObject>
         return self.database.filter(T.self, collection: self.name, block: block)
     }
 
-    public func delete(key: String) {
-        self.database.delete(T.self, collection: self.name, key: key)
+    public func remove(key: String) {
+        self.database.remove(T.self, collection: self.name, key: key)
     }
     
-    public func delete(keys: [String]) {
-        self.database.delete(T.self, collection: self.name, keys: keys)
+    public func remove(keys: [String]) {
+        self.database.remove(T.self, collection: self.name, keys: keys)
+    }
+
+    public func removeAll() {
+        self.database.removeAll(T.self, collection: self.name)
+    }
+
+    public func replaceAll(entities: [(key: String, object: T)]) {
+        self.database.replaceAll(collection: self.name, entities: entities.map { (key: $0.key, object: $0.object) })
     }
 
 // MARK: Inner Types
