@@ -30,7 +30,9 @@ public class DatabaseObjectObserver<T: DatabaseObject>
         self.notificationObserver = NSNotificationCenter.defaultCenter().addObserverForName(YapDatabaseModifiedNotification,
                 object: self.connection.database, queue: nil,
                 usingBlock: { notification in
-                    weakSelf?.handleDatabaseModifiedNotification(notification)
+                    dispatch.async.bg {
+                        weakSelf?.handleDatabaseModifiedNotification(notification)
+                    }
                 })
     }
 
@@ -69,8 +71,10 @@ public class DatabaseObjectObserver<T: DatabaseObject>
 
         if self.connection.hasChangeForKey(self.key, inCollection: self.collection, inNotifications: notifications)
         {
-            // Notify delegate
-            self.callback?(self.object)
+            dispatch.async.main { [weak self] in
+                // Notify delegate
+                self?.callback?(self?.object)
+            }
         }
     }
 
