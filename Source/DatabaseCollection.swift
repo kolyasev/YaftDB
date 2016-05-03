@@ -6,9 +6,13 @@
 //
 // ----------------------------------------------------------------------------
 
+import YapDatabase
+
+// ----------------------------------------------------------------------------
+
 public class DatabaseCollection<T: DatabaseObject>
 {
-// MARK: Construction
+// MARK: - Construction
 
     init(name: String, database: Database)
     {
@@ -16,13 +20,13 @@ public class DatabaseCollection<T: DatabaseObject>
         self.database = database
     }
 
-// MARK: Properties
+// MARK: - Properties
 
     let name: String
 
     let database: Database
 
-// MARK: Functions: Observing
+// MARK: - Functions: Observing
 
     public func observe(key: String) -> DatabaseObjectObserver<T>
     {
@@ -40,55 +44,212 @@ public class DatabaseCollection<T: DatabaseObject>
         return DatabaseCollectionViewObserver<V>(view: view, connection: connection)
     }
 
-// MARK: Functions: Operations
+// MARK: - Functions: Read Transactions
 
-    public func put(key: String, object: T) {
-        self.database.put(collection: self.name, key: key, object: object)
+    public func read(block: (DatabaseCollectionReadTransaction<T>) -> Void)
+    {
+        self.database.connection.readWithBlock { transaction in
+            block(self.collectionReadTransaction(transaction))
+        }
     }
 
-    public func put(entities: [(key: String, object: T)]) {
-        self.database.put(collection: self.name, entities: entities.map { (key: $0.key, object: $0.object) })
+    public func read<R>(block: (DatabaseCollectionReadTransaction<T>) -> R) -> R
+    {
+        var result: R!
+
+        self.database.connection.readWithBlock { transaction in
+            result = block(self.collectionReadTransaction(transaction))
+        }
+
+        return result
     }
 
-    public func get(key: String) -> T? {
-        return self.database.get(T.self, collection: self.name, key: key)
+    public func asyncRead(block: (DatabaseCollectionReadTransaction<T>) -> Void)
+    {
+        weak var weakSelf = self
+        self.database.connection.asyncReadWithBlock { transaction in
+            if let collectionTransaction = weakSelf?.collectionReadTransaction(transaction) {
+                block(collectionTransaction)
+            }
+        }
     }
 
-    public func get(keys: [String]) -> [String: T?] {
-        return self.database.get(T.self, collection: self.name, keys: keys)
+// MARK: - Functions: Write Transactions
+
+    public func write(block: (DatabaseCollectionReadWriteTransaction<T>) -> Void)
+    {
+        self.database.connection.readWriteWithBlock { transaction in
+            block(self.collectionReadWriteTransaction(transaction))
+        }
     }
 
-    public func filterKeys(block: (String) -> Bool) -> [String] {
-        return self.database.filterKeys(T.self, collection: self.name, block: block)
+    public func write<R>(block: (DatabaseCollectionReadWriteTransaction<T>) -> R) -> R
+    {
+        var result: R!
+
+        self.database.connection.readWriteWithBlock { transaction in
+            result = block(self.collectionReadWriteTransaction(transaction))
+        }
+
+        return result
     }
 
-    public func filterByKey(block: (String) -> Bool) -> [T] {
-        return self.database.filterByKey(collection: self.name, block: block)
+    public func asyncWrite(block: (DatabaseCollectionReadWriteTransaction<T>) -> Void)
+    {
+        weak var weakSelf = self
+        self.database.connection.asyncReadWriteWithBlock { transaction in
+            if let collectionTransaction = weakSelf?.collectionReadWriteTransaction(transaction) {
+                block(collectionTransaction)
+            }
+        }
     }
 
-    public func filter(block: (T) -> Bool) -> [T] {
-        return self.database.filter(T.self, collection: self.name, block: block)
+// MARK: - Private Functions
+
+    private func collectionReadTransaction(transaction: YapDatabaseReadTransaction) -> DatabaseCollectionReadTransaction<T> {
+        return DatabaseCollectionReadTransaction<T>(transaction: transaction, collection: self.name)
     }
 
-    public func remove(key: String) {
-        self.database.remove(T.self, collection: self.name, key: key)
-    }
-    
-    public func remove(keys: [String]) {
-        self.database.remove(T.self, collection: self.name, keys: keys)
+    private func collectionReadWriteTransaction(transaction: YapDatabaseReadWriteTransaction) -> DatabaseCollectionReadWriteTransaction<T> {
+        return DatabaseCollectionReadWriteTransaction<T>(transaction: transaction, collection: self.name)
     }
 
-    public func removeAll() {
-        self.database.removeAll(T.self, collection: self.name)
-    }
-
-    public func replaceAll(entities: [(key: String, object: T)]) {
-        self.database.replaceAll(collection: self.name, entities: entities.map { (key: $0.key, object: $0.object) })
-    }
-
-// MARK: Inner Types
+// MARK: - Inner Types
 
     typealias ObjectType = T
+
+}
+
+// ----------------------------------------------------------------------------
+
+extension DatabaseCollection
+{
+// MARK: - Functions: Operations
+
+    public func put(key: String, object: T)
+    {
+        asyncWrite { transaction in
+            transaction.put(key, object: object)
+        }
+    }
+
+    public func put(entities: [Entity])
+    {
+        asyncWrite { transaction in
+            for entity in entities {
+                transaction.put(entity.key, object: entity.object)
+            }
+        }
+    }
+
+    public func get(key: String) -> T?
+    {
+        return read { transaction in
+            return transaction.get(key)
+        }
+    }
+
+    public func get(keys: [String]) -> [String: T?]
+    {
+        return read { transaction in
+            var result: [String: T?] = [:]
+
+            for key in keys {
+                result[key] = transaction.get(key)
+            }
+
+            return result
+        }
+    }
+
+    // TODO: ...
+//    public func filterKeys(block: (String) -> Bool) -> [String]
+//    {
+//        var result: [String] = []
+//
+//        // Read from database
+//        self.connection.readWithBlock { transaction in
+//            transaction.enumerateKeysInCollection(collection) { key, stop in
+//                if block(key) {
+//                    result.append(key)
+//                }
+//            }
+//        }
+//
+//        return result
+//    }
+
+    // TODO: ...
+//    public func filterByKey(block: (String) -> Bool) -> [T]
+//    {
+//        var result: [T] = []
+//
+//        // Read from database
+//        self.connection.readWithBlock { transaction in
+//            transaction.enumerateKeysInCollection(collection) { key, stop in
+//                if block(key)
+//                {
+//                    if let object = transaction.objectForKey(key, inCollection: collection) as? T {
+//                        result.append(object)
+//                    }
+//                }
+//            }
+//        }
+//
+//        return result
+//    }
+
+    // TODO: ...
+//    public func filter(block: (T) -> Bool) -> [T]
+//    {
+//        var result: [T] = []
+//
+//        // Read from database
+//        self.connection.readWithBlock { transaction in
+//            transaction.enumerateKeysAndObjectsInCollection(collection) { key, object, stop in
+//                if let object = (object as? T) where block(object) {
+//                    result.append(object)
+//                }
+//            }
+//        }
+//
+//        return result
+//    }
+
+    public func remove(key: String)
+    {
+        asyncWrite { transaction in
+            transaction.remove(key)
+        }
+    }
+
+    public func remove(keys: [String])
+    {
+        asyncWrite { transaction in
+            transaction.remove(keys)
+        }
+    }
+
+    public func removeAll()
+    {
+        asyncWrite { transaction in
+            transaction.removeAll()
+        }
+    }
+
+    public func replaceAll(entities: [Entity])
+    {
+        asyncWrite { transaction in
+            transaction.removeAll()
+            for entity in entities {
+                transaction.put(entity.key, object: entity.object)
+            }
+        }
+    }
+
+// MARK: - Inner Types
+
+    public typealias Entity = (key: String, object: T)
 
 }
 

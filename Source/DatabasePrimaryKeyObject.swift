@@ -8,7 +8,7 @@
 
 public protocol DatabasePrimaryKeyObject
 {
-// MARK: Construction
+// MARK: - Properties
 
     var primaryKey: String { get }
 
@@ -18,18 +18,30 @@ public protocol DatabasePrimaryKeyObject
 
 extension DatabaseCollection where T: DatabasePrimaryKeyObject
 {
-// MARK: Functions
+// MARK: - Functions
 
     public func put(object: T) {
         put(object.primaryKey, object: object)
     }
 
-    public func put(objects: [T]) {
-        self.database.put(collection: self.name, entities: objects.map { (key: $0.primaryKey, object: $0) })
+    public func put(objects: [T])
+    {
+        asyncWrite { transaction in
+            for object in objects {
+                transaction.put(object.primaryKey, object: object)
+            }
+        }
     }
 
-    public func replaceAll(objects: [T]) {
-        self.database.replaceAll(collection: self.name, entities: objects.map { (key: $0.primaryKey, object: $0) })
+    public func replaceAll(objects: [T])
+    {
+        asyncWrite { transaction in
+            transaction.removeAll()
+
+            for object in objects {
+                transaction.put(object.primaryKey, object: object)
+            }
+        }
     }
 
 }

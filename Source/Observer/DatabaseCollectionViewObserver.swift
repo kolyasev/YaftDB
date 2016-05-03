@@ -33,7 +33,9 @@ public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol wh
         self.notificationObserver = NSNotificationCenter.defaultCenter().addObserverForName(YapDatabaseModifiedNotification,
                 object: self.connection.database, queue: nil,
                 usingBlock: { notification in
-                    weakSelf?.handleDatabaseModifiedNotification(notification)
+                    dispatch.async.bg {
+                        weakSelf?.handleDatabaseModifiedNotification(notification)
+                    }
                 })
 
         // Update mappings
@@ -120,6 +122,8 @@ public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol wh
 
     private func handleDatabaseModifiedNotification(notification: NSNotification)
     {
+        weak var weakSelf = self
+
         let notifications = self.connection.beginLongLivedReadTransaction()
         if  notifications.isEmpty { return }
 
@@ -131,19 +135,25 @@ public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol wh
 
         if let rowChanges = (rowChanges as? [YapDatabaseViewRowChange]) where !(rowChanges.isEmpty)
         {
-            // Notify delegate
-            self.delegate?.databaseCollectionViewObserverBeginUpdates()
+            dispatch.sync.main {
+                // Notify delegate
+                weakSelf?.delegate?.databaseCollectionViewObserverBeginUpdates()
+            }
 
             for rowChange in rowChanges
             {
                 let change = DatabaseCollectionViewChange(rowChange: rowChange)
 
-                // Notify delegate
-                self.delegate?.databaseCollectionViewObserverDidChange(change)
+                dispatch.sync.main {
+                    // Notify delegate
+                    weakSelf?.delegate?.databaseCollectionViewObserverDidChange(change)
+                }
             }
 
-            // Notify delegate
-            self.delegate?.databaseCollectionViewObserverEndUpdates()
+            dispatch.sync.main {
+                // Notify delegate
+                weakSelf?.delegate?.databaseCollectionViewObserverEndUpdates()
+            }
         }
     }
 
