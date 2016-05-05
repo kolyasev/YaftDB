@@ -55,6 +55,12 @@ public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol wh
 
     public weak var delegate: DatabaseCollectionViewObserverDelegate?
 
+    public var onBeginUpdates: OnBeginUpdatesCallback?
+
+    public var onChange: OnChangeCallback?
+
+    public var onEndUpdates: OnEndUpdatesCallback?
+
 // MARK: Functions
 
     public func numberOfGroups() -> Int {
@@ -138,6 +144,7 @@ public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol wh
             dispatch.sync.main {
                 // Notify delegate
                 weakSelf?.delegate?.databaseCollectionViewObserverBeginUpdates()
+                weakSelf?.onBeginUpdates?()
             }
 
             for rowChange in rowChanges
@@ -147,12 +154,14 @@ public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol wh
                 dispatch.sync.main {
                     // Notify delegate
                     weakSelf?.delegate?.databaseCollectionViewObserverDidChange(change)
+                    weakSelf?.onChange?(change: change)
                 }
             }
 
             dispatch.sync.main {
                 // Notify delegate
                 weakSelf?.delegate?.databaseCollectionViewObserverEndUpdates()
+                weakSelf?.onEndUpdates?()
             }
         }
     }
@@ -166,6 +175,12 @@ public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol wh
     typealias T = V.Object
 
     typealias G = V.Grouping
+
+    public typealias OnBeginUpdatesCallback = () -> Void
+
+    public typealias OnChangeCallback = (change: DatabaseCollectionViewChange) -> Void
+
+    public typealias OnEndUpdatesCallback = () -> Void
 
 // MARK: Variables
 
