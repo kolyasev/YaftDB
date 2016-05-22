@@ -8,27 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		6627FC481C52D5C1002A927F /* YaftDBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6627FC471C52D5C1002A927F /* YaftDBTests.swift */; };
-		6640E8041CBD7D7800FEFDE7 /* DatabasePrimaryKeyObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6640E8031CBD7D7800FEFDE7 /* DatabasePrimaryKeyObject.swift */; };
 		B5D6D7659AA13BAC8840A1FC /* Pods_YaftDBTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BA8E55CCA429A916564A4B3 /* Pods_YaftDBTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5BA8E55CCA429A916564A4B3 /* Pods_YaftDBTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YaftDBTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6627FBD81C517B6D002A927F /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
-		6627FBD91C517B6D002A927F /* DatabaseCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseCollection.swift; sourceTree = "<group>"; };
-		6627FBDA1C517B6D002A927F /* DatabaseObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseObject.swift; sourceTree = "<group>"; };
-		6627FBDB1C517B6D002A927F /* DatabaseObjectMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseObjectMetadata.swift; sourceTree = "<group>"; };
-		6627FBE01C517B6D002A927F /* InvalidDatabaseObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvalidDatabaseObject.swift; sourceTree = "<group>"; };
-		6627FBE21C517B6D002A927F /* DatabaseCollectionViewObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseCollectionViewObserver.swift; sourceTree = "<group>"; };
-		6627FBE31C517B6D002A927F /* DatabaseObjectObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseObjectObserver.swift; sourceTree = "<group>"; };
-		6627FBE51C517B6D002A927F /* DatabaseCollectionFilteredView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseCollectionFilteredView.swift; sourceTree = "<group>"; };
-		6627FBE61C517B6D002A927F /* DatabaseCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseCollectionView.swift; sourceTree = "<group>"; };
-		6627FBF31C517B8E002A927F /* DatabaseObjectCoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseObjectCoder.swift; sourceTree = "<group>"; };
-		6627FBF41C517B8E002A927F /* DatabaseObjectMetadataCoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseObjectMetadataCoder.swift; sourceTree = "<group>"; };
 		6627FC451C52D5C1002A927F /* YaftDBTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YaftDBTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6627FC471C52D5C1002A927F /* YaftDBTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YaftDBTests.swift; sourceTree = "<group>"; };
 		6627FC491C52D5C1002A927F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6640E8031CBD7D7800FEFDE7 /* DatabasePrimaryKeyObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabasePrimaryKeyObject.swift; sourceTree = "<group>"; };
 		B81DE6142DB50BC02FCE00A9 /* Pods-YaftDBTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YaftDBTests.debug.xcconfig"; path = "Example/Pods/Target Support Files/Pods-YaftDBTests/Pods-YaftDBTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B86A6E9F30D33021FD53CFC2 /* Pods-YaftDBTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YaftDBTests.release.xcconfig"; path = "Example/Pods/Target Support Files/Pods-YaftDBTests/Pods-YaftDBTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -48,63 +35,11 @@
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
-				6627FBD71C517B6D002A927F /* Source */,
 				6627FC451C52D5C1002A927F /* YaftDBTests.xctest */,
 				6627FC461C52D5C1002A927F /* YaftDBTests */,
 				83BBB733B1D53B0F3AC0235B /* Pods */,
 				6AA10194D16450A449280924 /* Frameworks */,
 			);
-			sourceTree = "<group>";
-		};
-		6627FBD71C517B6D002A927F /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				6627FBDF1C517B6D002A927F /* Internal */,
-				6627FBE11C517B6D002A927F /* Observer */,
-				6627FBE41C517B6D002A927F /* View */,
-				6627FBD81C517B6D002A927F /* Database.swift */,
-				6627FBD91C517B6D002A927F /* DatabaseCollection.swift */,
-				6627FBDA1C517B6D002A927F /* DatabaseObject.swift */,
-				6640E8031CBD7D7800FEFDE7 /* DatabasePrimaryKeyObject.swift */,
-				6627FBDB1C517B6D002A927F /* DatabaseObjectMetadata.swift */,
-			);
-			path = Source;
-			sourceTree = "<group>";
-		};
-		6627FBDF1C517B6D002A927F /* Internal */ = {
-			isa = PBXGroup;
-			children = (
-				6627FBF21C517B8E002A927F /* Coding */,
-				6627FBE01C517B6D002A927F /* InvalidDatabaseObject.swift */,
-			);
-			path = Internal;
-			sourceTree = "<group>";
-		};
-		6627FBE11C517B6D002A927F /* Observer */ = {
-			isa = PBXGroup;
-			children = (
-				6627FBE21C517B6D002A927F /* DatabaseCollectionViewObserver.swift */,
-				6627FBE31C517B6D002A927F /* DatabaseObjectObserver.swift */,
-			);
-			path = Observer;
-			sourceTree = "<group>";
-		};
-		6627FBE41C517B6D002A927F /* View */ = {
-			isa = PBXGroup;
-			children = (
-				6627FBE51C517B6D002A927F /* DatabaseCollectionFilteredView.swift */,
-				6627FBE61C517B6D002A927F /* DatabaseCollectionView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		6627FBF21C517B8E002A927F /* Coding */ = {
-			isa = PBXGroup;
-			children = (
-				6627FBF31C517B8E002A927F /* DatabaseObjectCoder.swift */,
-				6627FBF41C517B8E002A927F /* DatabaseObjectMetadataCoder.swift */,
-			);
-			path = Coding;
 			sourceTree = "<group>";
 		};
 		6627FC461C52D5C1002A927F /* YaftDBTests */ = {
@@ -252,7 +187,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6640E8041CBD7D7800FEFDE7 /* DatabasePrimaryKeyObject.swift in Sources */,
 				6627FC481C52D5C1002A927F /* YaftDBTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
