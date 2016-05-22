@@ -199,22 +199,20 @@ extension DatabaseCollection
 //        return result
 //    }
 
-    // TODO: ...
-//    public func filter(block: (T) -> Bool) -> [T]
-//    {
-//        var result: [T] = []
-//
-//        // Read from database
-//        self.connection.readWithBlock { transaction in
-//            transaction.enumerateKeysAndObjectsInCollection(collection) { key, object, stop in
-//                if let object = (object as? T) where block(object) {
-//                    result.append(object)
-//                }
-//            }
-//        }
-//
-//        return result
-//    }
+    public func filter(block: (T) -> Bool) -> [T]
+    {
+        return read { transaction in
+            var result: [T] = []
+
+            transaction.enumerateObjects { key, object, stop in
+                if block(object) {
+                    result.append(object)
+                }
+            }
+
+            return result
+        }
+    }
 
     public func remove(key: String)
     {
