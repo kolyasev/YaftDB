@@ -45,6 +45,8 @@ public class DatabaseObjectObserver<T: DatabaseObject>
 
 // MARK: Properties
 
+    public weak var delegate: DatabaseObjectObserverDelegate?
+
     public var callback: CallbackBlock?
 
     public var object: T?
@@ -73,6 +75,7 @@ public class DatabaseObjectObserver<T: DatabaseObject>
         {
             dispatch.async.main { [weak self] in
                 // Notify delegate
+                self?.delegate?.databaseObjectObserverDidUpdateObject()
                 self?.callback?(self?.object)
             }
         }
@@ -91,6 +94,16 @@ public class DatabaseObjectObserver<T: DatabaseObject>
     private let connection: YapDatabaseConnection
 
     private var notificationObserver: AnyObject?
+
+}
+
+// ----------------------------------------------------------------------------
+
+public protocol DatabaseObjectObserverDelegate: class
+{
+// MARK: - Functions
+
+    func databaseObjectObserverDidUpdateObject()
 
 }
 
