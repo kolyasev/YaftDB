@@ -44,6 +44,12 @@ public class DatabaseCollection<T: DatabaseObject>
         return DatabaseCollectionViewObserver<V>(view: view, connection: connection)
     }
 
+    public func observe() -> DatabaseCollectionObserver<T>
+    {
+        let connection = self.database.database.newConnection()
+        return DatabaseCollectionObserver<T>(collection: self.name, connection: connection)
+    }
+
 // MARK: - Functions: Read Transactions
 
     public func read(block: (DatabaseCollectionReadTransaction<T>) -> Void)
