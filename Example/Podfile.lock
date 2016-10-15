@@ -8,7 +8,7 @@ PODS:
   - CocoaLumberjack/Extensions (2.4.0):
     - CocoaLumberjack/Default
   - Reachability (3.2)
-  - YaftDB (0.1.5):
+  - YaftDB (0.2.0):
     - YapDatabase (~> 2.9)
   - YapDatabase (2.9.2):
     - YapDatabase/Standard (= 2.9.2)
@@ -71,7 +71,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   CocoaLumberjack: aa9dcab71bdf9eaf2a63bbd9ddc87863efe45457
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  YaftDB: 1dcc89999514fc34f4010baaae09eb60a396af7f
+  YaftDB: 3e9e8761655103b66301e8833396b22dffcc5750
   YapDatabase: b1e43555a34a5298e23a045be96817a5ef0da58f
 
 PODFILE CHECKSUM: aa29f917390eaa54012544f16d0f49e011bb900f

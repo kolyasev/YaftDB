@@ -294,7 +294,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B81DE6142DB50BC02FCE00A9 /* Pods-YaftDBTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = YaftDBTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
@@ -309,7 +308,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B86A6E9F30D33021FD53CFC2 /* Pods-YaftDBTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = YaftDBTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
