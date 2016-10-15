@@ -13,5 +13,5 @@ Pod::Spec.new do |s|
   s.source_files = 'Source/**/*.swift'
 
   s.frameworks =  'Foundation', 'UIKit'
-  s.dependency 'YapDatabase', '~> 2.7'
+  s.dependency 'YapDatabase', '~> 2.9'
 end

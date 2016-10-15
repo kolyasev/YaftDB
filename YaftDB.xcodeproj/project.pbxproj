@@ -35,8 +35,8 @@
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
-				6627FC451C52D5C1002A927F /* YaftDBTests.xctest */,
 				6627FC461C52D5C1002A927F /* YaftDBTests */,
+				66C736891DB23CB8003DA29F /* Products */,
 				83BBB733B1D53B0F3AC0235B /* Pods */,
 				6AA10194D16450A449280924 /* Frameworks */,
 			);
@@ -49,6 +49,14 @@
 				6627FC491C52D5C1002A927F /* Info.plist */,
 			);
 			path = YaftDBTests;
+			sourceTree = "<group>";
+		};
+		66C736891DB23CB8003DA29F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6627FC451C52D5C1002A927F /* YaftDBTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		6AA10194D16450A449280924 /* Frameworks */ = {
@@ -75,12 +83,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6627FC4A1C52D5C1002A927F /* Build configuration list for PBXNativeTarget "YaftDBTests" */;
 			buildPhases = (
-				B881A457AE0551CFD6FAE538 /* Check Pods Manifest.lock */,
+				B881A457AE0551CFD6FAE538 /* [CP] Check Pods Manifest.lock */,
 				6627FC411C52D5C1002A927F /* Sources */,
 				6627FC421C52D5C1002A927F /* Frameworks */,
 				6627FC431C52D5C1002A927F /* Resources */,
-				0FB2FB571FC77BB8CCC0CBC0 /* Embed Pods Frameworks */,
-				DC61B6D7B12DBC4EF783737B /* Copy Pods Resources */,
+				0FB2FB571FC77BB8CCC0CBC0 /* [CP] Embed Pods Frameworks */,
+				DC61B6D7B12DBC4EF783737B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -98,11 +106,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
 					6627FC441C52D5C1002A927F = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -115,7 +124,7 @@
 				Base,
 			);
 			mainGroup = 607FACC71AFB9204008FA782;
-			productRefGroup = 607FACC71AFB9204008FA782;
+			productRefGroup = 66C736891DB23CB8003DA29F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -135,14 +144,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0FB2FB571FC77BB8CCC0CBC0 /* Embed Pods Frameworks */ = {
+		0FB2FB571FC77BB8CCC0CBC0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -150,29 +159,29 @@
 			shellScript = "\"${SRCROOT}/Example/Pods/Target Support Files/Pods-YaftDBTests/Pods-YaftDBTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B881A457AE0551CFD6FAE538 /* Check Pods Manifest.lock */ = {
+		B881A457AE0551CFD6FAE538 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		DC61B6D7B12DBC4EF783737B /* Copy Pods Resources */ = {
+		DC61B6D7B12DBC4EF783737B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -207,8 +216,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -252,8 +263,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -272,6 +285,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -280,12 +294,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B81DE6142DB50BC02FCE00A9 /* Pods-YaftDBTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = YaftDBTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.kolyasev.YaftDBTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -293,11 +309,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B86A6E9F30D33021FD53CFC2 /* Pods-YaftDBTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = YaftDBTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.kolyasev.YaftDBTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
