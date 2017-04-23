@@ -11,7 +11,7 @@ import YapDatabase
 
 // ----------------------------------------------------------------------------
 
-public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol where V.Grouping: RawRepresentable, V.Grouping.RawValue == String>
+open class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol> where V.Grouping: RawRepresentable, V.Grouping.RawValue == String
 {
 // MARK: Construction
 
@@ -25,68 +25,68 @@ public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol wh
         self.connection.beginLongLivedReadTransaction()
 
         // Create mappings
-        let allGroups = view.dynamicType.allGroups().map{ $0.rawValue }
+        let allGroups = type(of: view).allGroups().map{ $0.rawValue }
         self.mappings = YapDatabaseViewMappings(groups: allGroups, view: self.view.name())
 
         // Register for notifications
         weak var weakSelf = self
-        self.notificationObserver = NSNotificationCenter.defaultCenter().addObserverForName(YapDatabaseModifiedNotification,
+        self.notificationObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.YapDatabaseModified,
                 object: self.connection.database, queue: nil,
-                usingBlock: { notification in
+                using: { notification in
                     dispatch.async.bg {
                         weakSelf?.handleDatabaseModifiedNotification(notification)
                     }
                 })
 
         // Update mappings
-        self.connection.readWithBlock { transaction in
-            weakSelf?.mappings.updateWithTransaction(transaction)
+        self.connection.read { transaction in
+            weakSelf?.mappings.update(with: transaction)
         }
     }
 
     deinit {
         // Unregister from notifications
         if let observer = self.notificationObserver {
-            NSNotificationCenter.defaultCenter().removeObserver(observer)
+            NotificationCenter.default.removeObserver(observer)
         }
     }
 
 // MARK: Properties
 
-    public weak var delegate: DatabaseCollectionViewObserverDelegate?
+    open weak var delegate: DatabaseCollectionViewObserverDelegate?
 
-    public var onBeginUpdates: OnBeginUpdatesCallback?
+    open var onBeginUpdates: OnBeginUpdatesCallback?
 
-    public var onChange: OnChangeCallback?
+    open var onChange: OnChangeCallback?
 
-    public var onEndUpdates: OnEndUpdatesCallback?
+    open var onEndUpdates: OnEndUpdatesCallback?
 
 // MARK: Functions
 
-    public func numberOfGroups() -> Int {
+    open func numberOfGroups() -> Int {
         return self.mappings.allGroups.count
     }
 
-    public func numberOfObjectsInGroup(group: G) -> Int {
-        return Int(self.mappings.numberOfItemsInGroup(group.rawValue))
+    open func numberOfObjectsInGroup(_ group: G) -> Int {
+        return Int(self.mappings.numberOfItems(inGroup: group.rawValue))
     }
 
-    public func objectInGroup(group: G, atIndex index: Int) -> T!
+    open func objectInGroup(_ group: G, atIndex index: Int) -> T!
     {
-        let section = mappings.sectionForGroup(group.rawValue)
+        let section = mappings.section(forGroup: group.rawValue)
         return objectInSection(Int(section), atIndex: index)
     }
 
-    public func allObjectsInGroup(group: G) -> [T]
+    open func allObjectsInGroup(_ group: G) -> [T]
     {
         var result: [T] = []
 
         let viewName = self.view.name()
 
-        self.connection.readWithBlock { transaction in
+        self.connection.read { transaction in
             if let viewTransactions = (transaction.ext(viewName) as? YapDatabaseViewTransaction)
             {
-                viewTransactions.enumerateRowsInGroup(group.rawValue, usingBlock: { collection, key, object, metadata, idx, stop in
+                viewTransactions.enumerateRows(inGroup: group.rawValue, with: [], using: { collection, key, object, metadata, idx, stop in
                     if let object = (object as? T) {
                         result.append(object)
                     }
@@ -99,25 +99,25 @@ public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol wh
 
 // MARK: Functions: Section Helpers
 
-    public func numberOfSections() -> Int {
+    open func numberOfSections() -> Int {
         return Int(self.mappings.numberOfSections())
     }
 
-    public func numberOfObjectsInSection(section: Int) -> Int {
-        return Int(self.mappings.numberOfItemsInSection(UInt(section)))
+    open func numberOfObjectsInSection(_ section: Int) -> Int {
+        return Int(self.mappings.numberOfItems(inSection: UInt(section)))
     }
 
-    public func objectInSection(section: Int, atIndex index: Int) -> T!
+    open func objectInSection(_ section: Int, atIndex index: Int) -> T!
     {
         var result: T!
 
         let viewName = self.view.name()
         let mappings = self.mappings
 
-        self.connection.readWithBlock { transaction in
+        self.connection.read { transaction in
             if let viewTransactions = (transaction.ext(viewName) as? YapDatabaseViewTransaction)
             {
-                result = viewTransactions.objectAtRow(UInt(index), inSection: UInt(section), withMappings: mappings) as? T
+                result = viewTransactions.object(atRow: UInt(index), inSection: UInt(section), with: mappings) as? T
             }
         }
 
@@ -126,7 +126,7 @@ public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol wh
 
 // MARK: Private Functions
 
-    private func handleDatabaseModifiedNotification(notification: NSNotification)
+    fileprivate func handleDatabaseModifiedNotification(_ notification: Notification)
     {
         weak var weakSelf = self
 
@@ -136,10 +136,10 @@ public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol wh
         var sectionChanges: NSArray?
         var rowChanges: NSArray?
 
-        self.databaseViewConnection().getSectionChanges(&sectionChanges, rowChanges: &rowChanges,
-                forNotifications: notifications, withMappings: self.mappings)
+        self.databaseViewConnection().getSectionChanges(&sectionChanges!, rowChanges: &rowChanges!,
+                for: notifications, with: self.mappings)
 
-        if let rowChanges = (rowChanges as? [YapDatabaseViewRowChange]) where !(rowChanges.isEmpty)
+        if let rowChanges = (rowChanges as? [YapDatabaseViewRowChange]), !(rowChanges.isEmpty)
         {
             dispatch.sync.main {
                 // Notify delegate
@@ -154,7 +154,7 @@ public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol wh
                 dispatch.sync.main {
                     // Notify delegate
                     weakSelf?.delegate?.databaseCollectionViewObserverDidChange(change)
-                    weakSelf?.onChange?(change: change)
+                    weakSelf?.onChange?(change)
                 }
             }
 
@@ -166,7 +166,7 @@ public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol wh
         }
     }
 
-    private func databaseViewConnection() -> YapDatabaseViewConnection {
+    fileprivate func databaseViewConnection() -> YapDatabaseViewConnection {
         return self.connection.ext(self.view.name()) as! YapDatabaseViewConnection
     }
 
@@ -178,19 +178,19 @@ public class DatabaseCollectionViewObserver<V: DatabaseCollectionViewProtocol wh
 
     public typealias OnBeginUpdatesCallback = () -> Void
 
-    public typealias OnChangeCallback = (change: DatabaseCollectionViewChange) -> Void
+    public typealias OnChangeCallback = (_ change: DatabaseCollectionViewChange) -> Void
 
     public typealias OnEndUpdatesCallback = () -> Void
 
 // MARK: Variables
 
-    private let view: V
+    fileprivate let view: V
 
-    private let connection: YapDatabaseConnection
+    fileprivate let connection: YapDatabaseConnection
 
-    private let mappings: YapDatabaseViewMappings
+    fileprivate let mappings: YapDatabaseViewMappings
 
-    private var notificationObserver: AnyObject?
+    fileprivate var notificationObserver: AnyObject?
 
 }
 
@@ -202,7 +202,7 @@ public protocol DatabaseCollectionViewObserverDelegate: class
 
     func databaseCollectionViewObserverBeginUpdates()
 
-    func databaseCollectionViewObserverDidChange(change: DatabaseCollectionViewChange)
+    func databaseCollectionViewObserverDidChange(_ change: DatabaseCollectionViewChange)
 
     func databaseCollectionViewObserverEndUpdates()
 
@@ -218,7 +218,7 @@ public extension DatabaseCollectionViewObserverDelegate
 
     public func databaseCollectionViewObserverBeginUpdates() {}
 
-    public func databaseCollectionViewObserverDidChange(change: DatabaseCollectionViewChange) {}
+    public func databaseCollectionViewObserverDidChange(_ change: DatabaseCollectionViewChange) {}
 
     public func databaseCollectionViewObserverEndUpdates() {}
 
@@ -226,7 +226,7 @@ public extension DatabaseCollectionViewObserverDelegate
 
 // ----------------------------------------------------------------------------
 
-public class DatabaseCollectionViewChange
+open class DatabaseCollectionViewChange
 {
 // MARK: Construction
 
@@ -240,11 +240,11 @@ public class DatabaseCollectionViewChange
 
 // MARK: Properties
 
-    public let indexPath: NSIndexPath
+    open let indexPath: IndexPath
 
-    public let newIndexPath: NSIndexPath
+    open let newIndexPath: IndexPath
 
-    public let type: DatabaseCollectionViewChangeType
+    open let type: DatabaseCollectionViewChangeType
 
 }
 
@@ -258,19 +258,19 @@ public enum DatabaseCollectionViewChangeType
     {
         switch type
         {
-            case .Insert: self = .Insert
-            case .Delete: self = .Delete
-            case .Move:   self = .Move
-            case .Update: self = .Update
+            case .insert: self = .insert
+            case .delete: self = .delete
+            case .move:   self = .move
+            case .update: self = .update
         }
     }
 
 // MARK: Cases
 
-    case Insert
-    case Delete
-    case Move
-    case Update
+    case insert
+    case delete
+    case move
+    case update
 
 }
 

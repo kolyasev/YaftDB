@@ -10,7 +10,7 @@ import YapDatabase
 
 // ----------------------------------------------------------------------------
 
-public class DatabaseCollectionReadWriteTransaction<T: DatabaseObject>: DatabaseCollectionReadTransaction<T>
+open class DatabaseCollectionReadWriteTransaction<T: DatabaseObject>: DatabaseCollectionReadTransaction<T>
 {
 // MARK: - Construction
 
@@ -25,12 +25,11 @@ public class DatabaseCollectionReadWriteTransaction<T: DatabaseObject>: Database
 
 // MARK: - Functions
 
-    public func put(key: String, object: T)
+    open func put(_ key: String, object: T)
     {
         let metadata = DatabaseObjectMetadata(hash: object.hash)
 
-        if let existingMetadata = (self.transaction.metadataForKey(key, inCollection: self.collection) as? DatabaseObjectMetadata)
-           where (existingMetadata.hash == metadata.hash)
+        if let existingMetadata = (self.transaction.metadata(forKey: key, inCollection: self.collection) as? DatabaseObjectMetadata), (existingMetadata.hash == metadata.hash)
         {
             // TODO: Update metadata only
         }
@@ -39,21 +38,21 @@ public class DatabaseCollectionReadWriteTransaction<T: DatabaseObject>: Database
         }
     }
 
-    public func remove(key: String) {
-        self.transaction.removeObjectForKey(key, inCollection: self.collection)
+    open func remove(_ key: String) {
+        self.transaction.removeObject(forKey: key, inCollection: self.collection)
     }
 
-    public func remove(keys: [String]) {
-        self.transaction.removeObjectsForKeys(keys, inCollection: self.collection)
+    open func remove(_ keys: [String]) {
+        self.transaction.removeObjects(forKeys: keys, inCollection: self.collection)
     }
 
-    public func removeAll() {
-        self.transaction.removeAllObjectsInCollection(self.collection)
+    open func removeAll() {
+        self.transaction.removeAllObjects(inCollection: self.collection)
     }
 
 // MARK: - Variables
 
-    private let transaction: YapDatabaseReadWriteTransaction
+    fileprivate let transaction: YapDatabaseReadWriteTransaction
 
 }
 

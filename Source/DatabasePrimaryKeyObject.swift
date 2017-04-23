@@ -20,11 +20,11 @@ extension DatabaseCollection where T: DatabasePrimaryKeyObject
 {
 // MARK: - Functions
 
-    public func put(object: T) {
+    public func put(_ object: T) {
         put(object.primaryKey, object: object)
     }
 
-    public func put(objects: [T])
+    public func put(_ objects: [T])
     {
         asyncWrite { transaction in
             for object in objects {
@@ -33,7 +33,7 @@ extension DatabaseCollection where T: DatabasePrimaryKeyObject
         }
     }
 
-    public func replaceAll(objects: [T])
+    public func replaceAll(_ objects: [T])
     {
         asyncWrite { transaction in
             transaction.removeAll()

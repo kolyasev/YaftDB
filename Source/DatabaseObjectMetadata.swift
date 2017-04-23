@@ -14,7 +14,7 @@ class DatabaseObjectMetadata
 {
 // MARK: Construction
 
-    init(hash: Int, timestamp: NSDate = NSDate())
+    init(hash: Int, timestamp: Date = Date())
     {
         // Init instance variables
         self.hash = hash
@@ -25,7 +25,7 @@ class DatabaseObjectMetadata
 
     let hash: Int
 
-    let timestamp: NSDate
+    let timestamp: Date
 
 }
 

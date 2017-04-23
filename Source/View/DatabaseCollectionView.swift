@@ -11,7 +11,7 @@ import YapDatabase.YapDatabaseView
 
 // ----------------------------------------------------------------------------
 
-public class DatabaseCollectionView<T: DatabaseObject, G: RawRepresentable where G.RawValue == String>: DatabaseCollectionViewProtocol
+open class DatabaseCollectionView<T: DatabaseObject, G: RawRepresentable>: DatabaseCollectionViewProtocol where G.RawValue == String
 {
 // MARK: Construction
 
@@ -23,30 +23,30 @@ public class DatabaseCollectionView<T: DatabaseObject, G: RawRepresentable where
 
 // MARK: Properties
 
-    public let collection: String
+    open let collection: String
 
-    public class var version: Int { return 1 }
+    open class var version: Int { return 1 }
 
 // MARK: Public Functions
 
-    public class func filter(key: String, object: T) -> G? {
+    open class func filter(_ key: String, object: T) -> G? {
         return nil
     }
 
-    public class func isOrderedBefore(key1 key1: String, object1: T, key2: String, object2: T) -> Bool {
+    open class func isOrderedBefore(key1: String, object1: T, key2: String, object2: T) -> Bool {
         return true
     }
 
-    public class func allGroups() -> [G] {
+    open class func allGroups() -> [G] {
         return []
     }
 
 // MARK: Inner Functions
 
-    public func registerExtensionInDatabase(database: YapDatabase)
+    open func registerExtensionInDatabase(_ database: YapDatabase)
     {
-        let grouping = self.dynamicType.createGrouping(self.collection)
-        let sorting = self.dynamicType.createSorting()
+        let grouping = type(of: self).createGrouping(self.collection)
+        let sorting = type(of: self).createSorting()
 
         // Use only current collection
         let options = YapDatabaseViewOptions()
@@ -56,16 +56,16 @@ public class DatabaseCollectionView<T: DatabaseObject, G: RawRepresentable where
         let view = YapDatabaseView(grouping: grouping, sorting: sorting, versionTag: nil, options: options)
 
         // Register extension
-        database.registerExtension(view, withName: databaseExtensionName())
+        database.register(view, withName: databaseExtensionName())
     }
 
-    public func name() -> String {
+    open func name() -> String {
         return databaseExtensionName()
     }
 
 // MARK: Private Functions
 
-    private class func createGrouping(collection: String) -> YapDatabaseViewGrouping
+    fileprivate class func createGrouping(_ collection: String) -> YapDatabaseViewGrouping
     {
         return YapDatabaseViewGrouping.withObjectBlock { transaction, collection, key, object in
             // Filter by collection
@@ -79,16 +79,16 @@ public class DatabaseCollectionView<T: DatabaseObject, G: RawRepresentable where
         }
     }
 
-    private class func createSorting() -> YapDatabaseViewSorting
+    fileprivate class func createSorting() -> YapDatabaseViewSorting
     {
         return YapDatabaseViewSorting.withObjectBlock { transaction, group, collection1, key1, object1, collection2, key2, object2 in
-            return self.isOrderedBefore(key1: key1, object1: object1 as! T, key2: key2, object2: object2 as! T) ? .OrderedAscending : .OrderedDescending
+            return self.isOrderedBefore(key1: key1, object1: object1 as! T, key2: key2, object2: object2 as! T) ? .orderedAscending : .orderedDescending
         }
     }
 
-    private func databaseExtensionName() -> String {
-        return String(DatabaseCollectionView<T, G>) + "_" + String(ImplementationVersion) + "_" + String(self.dynamicType)
-                + "_" + String(self.dynamicType.version) + "_" + self.collection + "_" + String(T.version)
+    fileprivate func databaseExtensionName() -> String {
+        return String(describing: DatabaseCollectionView<T, G>.self) + "_" + String(ImplementationVersion) + "_" + String(describing: type(of: self))
+                + "_" + String(type(of: self).version) + "_" + self.collection + "_" + String(T.version)
     }
 
 // MARK: Inner Types
@@ -99,7 +99,7 @@ public class DatabaseCollectionView<T: DatabaseObject, G: RawRepresentable where
 
 // MARK: Constants
 
-    private let ImplementationVersion: Int = 1
+    fileprivate let ImplementationVersion: Int = 1
 
 }
 
@@ -115,7 +115,7 @@ public protocol DatabaseCollectionViewProtocol
 
     func name() -> String
 
-    func registerExtensionInDatabase(database: YapDatabase)
+    func registerExtensionInDatabase(_ database: YapDatabase)
 
     static func allGroups() -> [Grouping]
 

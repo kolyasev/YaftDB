@@ -12,7 +12,7 @@ class InvalidDatabaseObject: DatabaseObject
 
     init() {}
 
-    required init(params: [String: AnyObject]) {
+    required init(params: [String: Any]) {
         fatalError()
     }
 
@@ -24,7 +24,7 @@ class InvalidDatabaseObject: DatabaseObject
 
 // MARK: Functions
 
-    func serialize() -> [String: AnyObject] {
+    func serialize() -> [String: Any] {
         fatalError()
     }
 

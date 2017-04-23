@@ -10,7 +10,7 @@ public protocol DatabaseObject: class
 {
 // MARK: Construction
 
-    init(params: [String: AnyObject])
+    init(params: [String: Any])
 
 // MARK: Properties
 
@@ -20,7 +20,7 @@ public protocol DatabaseObject: class
 
 // MARK: Functions
 
-    func serialize() -> [String: AnyObject]
+    func serialize() -> [String: Any]
 
 }
 

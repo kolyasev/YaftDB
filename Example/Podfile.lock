@@ -66,7 +66,7 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   YaftDB:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
   CocoaLumberjack: aa9dcab71bdf9eaf2a63bbd9ddc87863efe45457
@@ -76,4 +76,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: aa29f917390eaa54012544f16d0f49e011bb900f
 
-COCOAPODS: 1.1.0.rc.3
+COCOAPODS: 1.1.1

@@ -11,7 +11,7 @@ import YapDatabase
 
 // ----------------------------------------------------------------------------
 
-public class DatabaseObjectObserver<T: DatabaseObject>
+open class DatabaseObjectObserver<T: DatabaseObject>
 {
 // MARK: Construction
 
@@ -27,9 +27,9 @@ public class DatabaseObjectObserver<T: DatabaseObject>
 
         // Register for notifications
         weak var weakSelf = self
-        self.notificationObserver = NSNotificationCenter.defaultCenter().addObserverForName(YapDatabaseModifiedNotification,
+        self.notificationObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.YapDatabaseModified,
                 object: self.connection.database, queue: nil,
-                usingBlock: { notification in
+                using: { notification in
                     dispatch.async.bg {
                         weakSelf?.handleDatabaseModifiedNotification(notification)
                     }
@@ -39,17 +39,17 @@ public class DatabaseObjectObserver<T: DatabaseObject>
     deinit {
         // Unregister from notifications
         if let observer = self.notificationObserver {
-            NSNotificationCenter.defaultCenter().removeObserver(observer)
+            NotificationCenter.default.removeObserver(observer)
         }
     }
 
 // MARK: Properties
 
-    public weak var delegate: DatabaseObjectObserverDelegate?
+    open weak var delegate: DatabaseObjectObserverDelegate?
 
-    public var callback: CallbackBlock?
+    open var callback: CallbackBlock?
 
-    public var object: T?
+    open var object: T?
     {
         var result: T?
 
@@ -57,8 +57,8 @@ public class DatabaseObjectObserver<T: DatabaseObject>
         let key = self.key
 
         // Read from database
-        self.connection.readWithBlock { transaction in
-            result = transaction.objectForKey(key, inCollection: collection) as? T
+        self.connection.read { transaction in
+            result = transaction.object(forKey: key, inCollection: collection) as? T
         }
 
         return result
@@ -66,12 +66,12 @@ public class DatabaseObjectObserver<T: DatabaseObject>
 
 // MARK: Private Functions
 
-    private func handleDatabaseModifiedNotification(notification: NSNotification)
+    fileprivate func handleDatabaseModifiedNotification(_ notification: Notification)
     {
         let notifications = self.connection.beginLongLivedReadTransaction()
         if  notifications.isEmpty { return }
 
-        if self.connection.hasChangeForKey(self.key, inCollection: self.collection, inNotifications: notifications)
+        if self.connection.hasChange(forKey: self.key, inCollection: self.collection, in: notifications)
         {
             dispatch.async.main { [weak self] in
                 // Notify delegate
@@ -87,13 +87,13 @@ public class DatabaseObjectObserver<T: DatabaseObject>
 
 // MARK: Variables
 
-    private let collection: String
+    fileprivate let collection: String
 
-    private let key: String
+    fileprivate let key: String
 
-    private let connection: YapDatabaseConnection
+    fileprivate let connection: YapDatabaseConnection
 
-    private var notificationObserver: AnyObject?
+    fileprivate var notificationObserver: AnyObject?
 
 }
 

@@ -10,7 +10,7 @@ import YapDatabase
 
 // ----------------------------------------------------------------------------
 
-public class Database
+open class Database
 {
 // MARK: - Construction
 
@@ -33,7 +33,7 @@ public class Database
 
 // MARK: - Public Functions
 
-    public func collection<T>(type: T.Type = T.self, name: String) -> DatabaseCollection<T> {
+    open func collection<T>(_ type: T.Type = T.self, name: String) -> DatabaseCollection<T> {
         return DatabaseCollection<T>(name: name, database: self)
     }
 

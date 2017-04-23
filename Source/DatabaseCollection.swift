@@ -10,7 +10,7 @@ import YapDatabase
 
 // ----------------------------------------------------------------------------
 
-public class DatabaseCollection<T: DatabaseObject>
+open class DatabaseCollection<T: DatabaseObject>
 {
 // MARK: - Construction
 
@@ -28,13 +28,13 @@ public class DatabaseCollection<T: DatabaseObject>
 
 // MARK: - Functions: Observing
 
-    public func observe(key: String) -> DatabaseObjectObserver<T>
+    open func observe(_ key: String) -> DatabaseObjectObserver<T>
     {
         let connection = self.database.database.newConnection()
         return DatabaseObjectObserver<T>(collection: self.name, key: key, connection: connection)
     }
 
-    public func observe<V: DatabaseCollectionViewProtocol where V.Object == T>(viewType: V.Type) -> DatabaseCollectionViewObserver<V>
+    open func observe<V: DatabaseCollectionViewProtocol>(_ viewType: V.Type) -> DatabaseCollectionViewObserver<V> where V.Object == T
     {
         let view = viewType.init(collection: self.name)
 
@@ -44,7 +44,7 @@ public class DatabaseCollection<T: DatabaseObject>
         return DatabaseCollectionViewObserver<V>(view: view, connection: connection)
     }
 
-    public func observe() -> DatabaseCollectionObserver<T>
+    open func observe() -> DatabaseCollectionObserver<T>
     {
         let connection = self.database.database.newConnection()
         return DatabaseCollectionObserver<T>(collection: self.name, connection: connection)
@@ -52,28 +52,28 @@ public class DatabaseCollection<T: DatabaseObject>
 
 // MARK: - Functions: Read Transactions
 
-    public func read(block: (DatabaseCollectionReadTransaction<T>) -> Void)
+    open func read(_ block: @escaping (DatabaseCollectionReadTransaction<T>) -> Void)
     {
-        self.database.connection.readWithBlock { transaction in
+        self.database.connection.read { transaction in
             block(self.collectionReadTransaction(transaction))
         }
     }
 
-    public func read<R>(block: (DatabaseCollectionReadTransaction<T>) -> R) -> R
+    open func read<R>(_ block: @escaping (DatabaseCollectionReadTransaction<T>) -> R) -> R
     {
         var result: R!
 
-        self.database.connection.readWithBlock { transaction in
+        self.database.connection.read { transaction in
             result = block(self.collectionReadTransaction(transaction))
         }
 
         return result
     }
 
-    public func asyncRead(block: (DatabaseCollectionReadTransaction<T>) -> Void)
+    open func asyncRead(_ block: @escaping (DatabaseCollectionReadTransaction<T>) -> Void)
     {
         weak var weakSelf = self
-        self.database.connection.asyncReadWithBlock { transaction in
+        self.database.connection.asyncRead { transaction in
             if let collectionTransaction = weakSelf?.collectionReadTransaction(transaction) {
                 block(collectionTransaction)
             }
@@ -82,28 +82,28 @@ public class DatabaseCollection<T: DatabaseObject>
 
 // MARK: - Functions: Write Transactions
 
-    public func write(block: (DatabaseCollectionReadWriteTransaction<T>) -> Void)
+    open func write(_ block: @escaping (DatabaseCollectionReadWriteTransaction<T>) -> Void)
     {
-        self.database.connection.readWriteWithBlock { transaction in
+        self.database.connection.readWrite { transaction in
             block(self.collectionReadWriteTransaction(transaction))
         }
     }
 
-    public func write<R>(block: (DatabaseCollectionReadWriteTransaction<T>) -> R) -> R
+    open func write<R>(_ block: @escaping (DatabaseCollectionReadWriteTransaction<T>) -> R) -> R
     {
         var result: R!
 
-        self.database.connection.readWriteWithBlock { transaction in
+        self.database.connection.readWrite { transaction in
             result = block(self.collectionReadWriteTransaction(transaction))
         }
 
         return result
     }
 
-    public func asyncWrite(block: (DatabaseCollectionReadWriteTransaction<T>) -> Void)
+    open func asyncWrite(_ block: @escaping (DatabaseCollectionReadWriteTransaction<T>) -> Void)
     {
         weak var weakSelf = self
-        self.database.connection.asyncReadWriteWithBlock { transaction in
+        self.database.connection.asyncReadWrite { transaction in
             if let collectionTransaction = weakSelf?.collectionReadWriteTransaction(transaction) {
                 block(collectionTransaction)
             }
@@ -112,11 +112,11 @@ public class DatabaseCollection<T: DatabaseObject>
 
 // MARK: - Private Functions
 
-    private func collectionReadTransaction(transaction: YapDatabaseReadTransaction) -> DatabaseCollectionReadTransaction<T> {
+    fileprivate func collectionReadTransaction(_ transaction: YapDatabaseReadTransaction) -> DatabaseCollectionReadTransaction<T> {
         return DatabaseCollectionReadTransaction<T>(transaction: transaction, collection: self.name)
     }
 
-    private func collectionReadWriteTransaction(transaction: YapDatabaseReadWriteTransaction) -> DatabaseCollectionReadWriteTransaction<T> {
+    fileprivate func collectionReadWriteTransaction(_ transaction: YapDatabaseReadWriteTransaction) -> DatabaseCollectionReadWriteTransaction<T> {
         return DatabaseCollectionReadWriteTransaction<T>(transaction: transaction, collection: self.name)
     }
 
@@ -132,14 +132,14 @@ extension DatabaseCollection
 {
 // MARK: - Functions: Operations
 
-    public func put(key: String, object: T)
+    public func put(_ key: String, object: T)
     {
         asyncWrite { transaction in
             transaction.put(key, object: object)
         }
     }
 
-    public func put(entities: [Entity])
+    public func put(_ entities: [Entity])
     {
         asyncWrite { transaction in
             for entity in entities {
@@ -148,14 +148,14 @@ extension DatabaseCollection
         }
     }
 
-    public func get(key: String) -> T?
+    public func get(_ key: String) -> T?
     {
         return read { transaction in
             return transaction.get(key)
         }
     }
 
-    public func get(keys: [String]) -> [String: T?]
+    public func get(_ keys: [String]) -> [String: T?]
     {
         return read { transaction in
             var result: [String: T?] = [:]
@@ -205,7 +205,7 @@ extension DatabaseCollection
 //        return result
 //    }
 
-    public func filter(block: (T) -> Bool) -> [T]
+    public func filter(_ block: @escaping (T) -> Bool) -> [T]
     {
         return read { transaction in
             var result: [T] = []
@@ -220,14 +220,14 @@ extension DatabaseCollection
         }
     }
 
-    public func remove(key: String)
+    public func remove(_ key: String)
     {
         asyncWrite { transaction in
             transaction.remove(key)
         }
     }
 
-    public func remove(keys: [String])
+    public func remove(_ keys: [String])
     {
         asyncWrite { transaction in
             transaction.remove(keys)
@@ -241,7 +241,7 @@ extension DatabaseCollection
         }
     }
 
-    public func replaceAll(entities: [Entity])
+    public func replaceAll(_ entities: [Entity])
     {
         asyncWrite { transaction in
             transaction.removeAll()

@@ -10,7 +10,7 @@ import YapDatabase
 
 // ----------------------------------------------------------------------------
 
-public class DatabaseCollectionReadTransaction<T: DatabaseObject>
+open class DatabaseCollectionReadTransaction<T: DatabaseObject>
 {
 // MARK: - Construction
 
@@ -27,37 +27,37 @@ public class DatabaseCollectionReadTransaction<T: DatabaseObject>
 
 // MARK: - Functions
 
-    public func get(key: String) -> T? {
-        return self.transaction.objectForKey(key, inCollection: self.collection) as? T
+    open func get(_ key: String) -> T? {
+        return self.transaction.object(forKey: key, inCollection: self.collection) as? T
     }
 
-    public func enumerateKeys(block: (key: String, stop: inout Bool) -> Void)
+    open func enumerateKeys(_ block: @escaping (_ key: String, _ stop: inout Bool) -> Void)
     {
-        self.transaction.enumerateKeysInCollection(self.collection) { key, stop in
+        self.transaction.enumerateKeys(inCollection: self.collection) { key, stop in
             var s = false
 
-            block(key: key, stop: &s)
+            block(key, &s)
 
-            if s { stop.memory = true }
+            if s { stop.pointee = true }
         }
     }
 
-    public func enumerateObjects(block: (key: String, object: T, stop: inout Bool) -> Void)
+    open func enumerateObjects(_ block: @escaping (_ key: String, _ object: T, _ stop: inout Bool) -> Void)
     {
-        self.transaction.enumerateKeysAndObjectsInCollection(self.collection) { key, object, stop in
+        self.transaction.enumerateKeysAndObjects(inCollection: self.collection) { key, object, stop in
             var s = false
 
             if let object = (object as? T) {
-                block(key: key, object: object, stop: &s)
+                block(key, object, &s)
             }
 
-            if s { stop.memory = true }
+            if s { stop.pointee = true }
         }
     }
 
 // MARK: - Variables
 
-    private let transaction: YapDatabaseReadTransaction
+    fileprivate let transaction: YapDatabaseReadTransaction
 
 }
 

@@ -14,48 +14,48 @@ class DatabaseObjectCoder
 {
 // MARK: Functions
 
-    class func serializeObject(collection: String, key: String, object: AnyObject) -> NSData
+    class func serializeObject(collection: String, key: String, object: Any) -> Data
     {
         let result = NSMutableData()
 
-        if let DatabaseObject = (object as? DatabaseObject)
+        if let databaseObject = (object as? DatabaseObject)
         {
-            let archiver = NSKeyedArchiver(forWritingWithMutableData: result)
+            let archiver = NSKeyedArchiver(forWritingWith: result)
 
             // Encode object class name
-            let className = NSStringFromClass(object.dynamicType)
-            archiver.encodeObject(className, forKey: ArchiverKeys.ClassName)
+            let className = NSStringFromClass(type(of: databaseObject))
+            archiver.encode(className, forKey: ArchiverKeys.ClassName)
 
             // Encode class version
-            let classVersion = DatabaseObject.dynamicType.version
-            archiver.encodeInteger(classVersion, forKey: ArchiverKeys.ClassVersion)
+            let classVersion = type(of: databaseObject).version
+            archiver.encode(classVersion, forKey: ArchiverKeys.ClassVersion)
 
             // Encode object
-            let dict = DatabaseObject.serialize()
-            archiver.encodeObject(dict, forKey: ArchiverKeys.Object)
+            let dict = databaseObject.serialize()
+            archiver.encode(dict, forKey: ArchiverKeys.Object)
 
             // Finish encoding
             archiver.finishEncoding()
         }
         else {
-            fatalError("Can not serialize object of type '\(object.dynamicType)'.")
+            fatalError("Can not serialize object of type '\(type(of: object))'.")
         }
 
-        return result
+        return result as Data
     }
 
-    class func deserializerObject(collection: String, key: String, data: NSData) -> AnyObject
+    class func deserializerObject(collection: String, key: String, data: Data) -> AnyObject
     {
         var result: DatabaseObject
 
         // Init unarchiver for reading data
-        let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
+        let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
 
         // Decode object
-        if let className = (unarchiver.decodeObjectForKey(ArchiverKeys.ClassName) as? String),
+        if let className = (unarchiver.decodeObject(forKey: ArchiverKeys.ClassName) as? String),
            let objectClass = (NSClassFromString(className) as? DatabaseObject.Type),
-           let dict = (unarchiver.decodeObjectForKey(ArchiverKeys.Object) as? [String: AnyObject])
-           where (unarchiver.decodeIntegerForKey(ArchiverKeys.ClassVersion) == objectClass.version)
+           let dict = (unarchiver.decodeObject(forKey: ArchiverKeys.Object) as? [String: Any]),
+           (unarchiver.decodeInteger(forKey: ArchiverKeys.ClassVersion) == objectClass.version)
         {
             result = objectClass.init(params: dict)
         }

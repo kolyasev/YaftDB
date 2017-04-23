@@ -12,7 +12,7 @@ import YapDatabase.YapDatabaseFilteredView
 
 // ----------------------------------------------------------------------------
 
-public class DatabaseCollectionFilteredView<T: DatabaseObject, G: RawRepresentable where G.RawValue == String>: DatabaseCollectionView<T, G>
+open class DatabaseCollectionFilteredView<T: DatabaseObject, G: RawRepresentable>: DatabaseCollectionView<T, G> where G.RawValue == String
 {
 // MARK: Construction
 
@@ -22,46 +22,46 @@ public class DatabaseCollectionFilteredView<T: DatabaseObject, G: RawRepresentab
 
 // MARK: Public Functions
 
-    public func filter(key: String, object: T) -> Bool {
+    open func filter(_ key: String, object: T) -> Bool {
         return true
     }
 
-    public func filterVersionTag() -> String {
-        return NSUUID().UUIDString
+    open func filterVersionTag() -> String {
+        return UUID().uuidString
     }
 
 // MARK: Inner Functions
 
-    public override func registerExtensionInDatabase(database: YapDatabase) {
+    open override func registerExtensionInDatabase(_ database: YapDatabase) {
         super.registerExtensionInDatabase(database)
 
         // Init filtering
         let filter = self.filter
         let filtering = YapDatabaseViewFiltering.withObjectBlock { transaction, group, collection, key, object in
-            return filter(key, object: object as! T)
+            return filter(key, object as! T)
         }
 
         // Init filtered database view
         let view = YapDatabaseFilteredView(parentViewName: super.name(), filtering: filtering, versionTag: filterVersionTag())
 
         // Register extension
-        database.registerExtension(view, withName: databaseExtensionName())
+        database.register(view, withName: databaseExtensionName())
     }
 
-    public override func name() -> String {
+    open override func name() -> String {
         return databaseExtensionName()
     }
 
 // MARK: Private Functions
 
-    private func databaseExtensionName() -> String {
-        return String(DatabaseCollectionFilteredView<T, G>) + "_" + String(ImplementationVersion) + "_" + String(self.dynamicType)
-                + "_" + String(self.dynamicType.version) + "_" + self.collection + "_" + String(T.version)
+    fileprivate func databaseExtensionName() -> String {
+        return String(describing: DatabaseCollectionFilteredView<T, G>.self) + "_" + String(ImplementationVersion) + "_" + String(describing: type(of: self))
+                + "_" + String(type(of: self).version) + "_" + self.collection + "_" + String(T.version)
     }
 
 // MARK: Constants
 
-    private let ImplementationVersion: Int = 1
+    fileprivate let ImplementationVersion: Int = 1
 
 }
 

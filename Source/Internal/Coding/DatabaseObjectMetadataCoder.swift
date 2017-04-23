@@ -14,38 +14,38 @@ class DatabaseObjectMetadataCoder
 {
 // MARK: Functions
 
-    class func serializeMetadata(collection: String, key: String, metadata: AnyObject) -> NSData
+    class func serializeMetadata(_ collection: String, key: String, metadata: Any) -> Data
     {
         let result = NSMutableData()
 
         if let metadata = (metadata as? DatabaseObjectMetadata)
         {
-            let archiver = NSKeyedArchiver(forWritingWithMutableData: result)
+            let archiver = NSKeyedArchiver(forWritingWith: result)
 
             // Encode object
-            archiver.encodeInteger(metadata.hash, forKey: ArchiverKeys.Hash)
-            archiver.encodeObject(metadata.timestamp, forKey: ArchiverKeys.Timestamp)
+            archiver.encode(metadata.hash, forKey: ArchiverKeys.Hash)
+            archiver.encode(metadata.timestamp, forKey: ArchiverKeys.Timestamp)
 
             // Finish encoding
             archiver.finishEncoding()
         }
         else {
-            fatalError("Can not serialize metadata of type '\(metadata.dynamicType)'.")
+            fatalError("Can not serialize metadata of type '\(type(of: metadata))'.")
         }
 
-        return result
+        return result as Data
     }
 
-    class func deserializerMetadata(collection: String, key: String, data: NSData) -> AnyObject
+    class func deserializerMetadata(_ collection: String, key: String, data: Data) -> AnyObject
     {
         let result: DatabaseObjectMetadata
 
         // Init unarchiver for reading data
-        let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
+        let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
 
         // Decode object
-        let hash = unarchiver.decodeIntegerForKey(ArchiverKeys.Hash)
-        if let timestamp = (unarchiver.decodeObjectForKey(ArchiverKeys.Timestamp) as? NSDate)
+        let hash = unarchiver.decodeInteger(forKey: ArchiverKeys.Hash)
+        if let timestamp = (unarchiver.decodeObject(forKey: ArchiverKeys.Timestamp) as? Date)
         {
             result = DatabaseObjectMetadata(hash: hash, timestamp: timestamp)
         }
@@ -58,7 +58,7 @@ class DatabaseObjectMetadataCoder
 
 // MARK: Constants
 
-    private struct ArchiverKeys
+    fileprivate struct ArchiverKeys
     {
         static let Hash = "hash"
         static let Timestamp = "timestamp"
