@@ -53,7 +53,7 @@ open class DatabaseCollectionView<T: DatabaseObject, G: RawRepresentable>: Datab
         options.allowedCollections = YapWhitelistBlacklist(whitelist: Set(arrayLiteral: self.collection))
 
         // Init database view
-        let view = YapDatabaseView(grouping: grouping, sorting: sorting, versionTag: nil, options: options)
+        let view = YapDatabaseAutoView(grouping: grouping, sorting: sorting, versionTag: nil, options: options)
 
         // Register extension
         database.register(view, withName: databaseExtensionName())

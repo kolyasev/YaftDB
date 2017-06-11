@@ -30,7 +30,7 @@ open class DatabaseObjectObserver<T: DatabaseObject>
         self.notificationObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.YapDatabaseModified,
                 object: self.connection.database, queue: nil,
                 using: { notification in
-                    dispatch.async.bg {
+                    DispatchQueue.global().async {
                         weakSelf?.handleDatabaseModifiedNotification(notification)
                     }
                 })
@@ -73,7 +73,7 @@ open class DatabaseObjectObserver<T: DatabaseObject>
 
         if self.connection.hasChange(forKey: self.key, inCollection: self.collection, in: notifications)
         {
-            dispatch.async.main { [weak self] in
+            DispatchQueue.main.async { [weak self] in
                 // Notify delegate
                 self?.delegate?.databaseObjectObserverDidUpdateObject()
                 self?.callback?(self?.object)
