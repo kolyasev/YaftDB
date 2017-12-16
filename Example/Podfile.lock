@@ -5,7 +5,7 @@ PODS:
   - CocoaLumberjack/Default (3.2.0)
   - CocoaLumberjack/Extensions (3.2.0):
     - CocoaLumberjack/Default
-  - YaftDB (0.2.0):
+  - YaftDB (0.3.0):
     - YapDatabase (~> 3.0)
   - YapDatabase (3.0):
     - YapDatabase/Standard (= 3.0)
@@ -77,7 +77,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   CocoaLumberjack: 9b4aed7073d242f29cc2f62068d995faf67f703a
-  YaftDB: d30cdb07d07e743df2ed1f33e34ef9e935bb482e
+  YaftDB: 7a4b70162990190ae37eb41f6fedc0be82ed1bef
   YapDatabase: 0cef6c79948169c924ae325d430ffcfa8a5231c2
 
 PODFILE CHECKSUM: aa29f917390eaa54012544f16d0f49e011bb900f
