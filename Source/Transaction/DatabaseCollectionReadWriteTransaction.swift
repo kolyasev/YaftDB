@@ -28,14 +28,7 @@ open class DatabaseCollectionReadWriteTransaction<T: DatabaseObject>: DatabaseCo
     open func put(_ key: String, object: T)
     {
         let metadata = DatabaseObjectMetadata(hash: object.hash)
-
-        if let existingMetadata = (self.transaction.metadata(forKey: key, inCollection: self.collection) as? DatabaseObjectMetadata), (existingMetadata.hash == metadata.hash)
-        {
-            // TODO: Update metadata only
-        }
-        else {
-            self.transaction.setObject(object, forKey: key, inCollection: self.collection, withMetadata: metadata)
-        }
+        self.transaction.setObject(object, forKey: key, inCollection: self.collection, withMetadata: metadata)
     }
 
     open func remove(_ key: String) {
